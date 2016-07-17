@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { checkAuth, signOut } from '../../actions/actions_firebase';
 
-export default class App extends Component {
+class Header extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  };
   componentWillMount() {
     this.props.checkAuth();
   }
@@ -14,19 +17,23 @@ export default class App extends Component {
         return (
           <div>
             <p><img src={authData.photoURL} /> Hey there {authData.displayName}</p>
-            <button className="btn btn-danger" onClick={() => this.props.signOut()}>Sign out</button>
+            <button className="btn btn-danger" onClick={() => this.signOut()}>Sign out</button>
           </div>
         )
       } else if(!authData.photoURL && authData.displayName) {
         return (
           <div>
             <p>Hey there {authData.displayName}</p>
-            <button className="btn btn-danger" onClick={() => this.props.signOut()}>Sign out</button>
+            <button className="btn btn-danger" onClick={() => this.signOut()}>Sign out</button>
           </div>
         )
       }
       return <p></p>
     }
+  }
+  signOut(){
+    this.context.router.push(`/`);
+    this.props.signOut();
   }
   render() {
     return (
@@ -42,4 +49,4 @@ function mapStateToProps(state) {
   return { auth: state.auth };
 }
 
-export default connect(mapStateToProps, { checkAuth, signOut })(App);
+export default connect(mapStateToProps, { checkAuth, signOut })(Header);
