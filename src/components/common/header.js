@@ -10,7 +10,7 @@ class Header extends Component {
     this.props.checkAuth();
   }
   getAuthState(authData){
-    if(!authData.uid){
+    if(!this.props.auth.loggedIn){
       return <span></span>
     } else{
       if(authData.photoURL && authData.displayName){

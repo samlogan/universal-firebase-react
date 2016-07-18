@@ -3,17 +3,16 @@ import {
   INIT_AUTH,
   SIGN_IN_ERROR,
   SIGN_IN_SUCCESS,
-  SIGN_OUT_SUCCESS
+  SIGN_OUT_SUCCESS,
+  NOT_SIGNED_IN,
+  HAS_ERROR,
+  RESET_ERRORS
 } from './types/types_firebase';
 
-// AUTH
-function authenticate(provider) {
-  return dispatch => {
-    firebaseAuth.signInWithPopup(provider)
-      .then(result => dispatch(signInSuccess(result)))
-      .catch(error => dispatch(signInError(error)));
-  };
-}
+const usersRef = firebaseDb.ref(`users`);
+
+/* Check Auth
+=================================================== */
 export function checkAuth() {
   return dispatch => {
     firebaseAuth.onAuthStateChanged(function(user) {
@@ -25,13 +24,14 @@ export function checkAuth() {
         });
       } else {
         dispatch({
-          type: INIT_AUTH,
-          payload: user
+          type: NOT_SIGNED_IN
         });
       }
     });
   }
 }
+/* Sign in / Sign off actions
+=================================================== */
 export function signInError(error) {
   return {
     type: SIGN_IN_ERROR,
@@ -41,20 +41,26 @@ export function signInError(error) {
 export function signInSuccess(result) {
   return {
     type: SIGN_IN_SUCCESS,
-    payload: result.user
+    payload: result
   };
 }
-export function createUserWithEmail(email, password) {
+export function signOut() {
   return dispatch => {
-    firebaseAuth.createUserWithEmailAndPassword(email, password)
-      .then(result => dispatch(signInSuccess(result)))
-      .catch(error => dispatch(signInError(error)));
+    firebaseAuth.signOut()
+      .then(() => dispatch(signOutSuccess()));
   };
 }
-export function signInWithEmail(email, password) {
+export function signOutSuccess() {
+  return {
+    type: SIGN_OUT_SUCCESS
+  };
+}
+/* Provider Signup
+=================================================== */
+function authenticate(provider) {
   return dispatch => {
-    firebaseAuth.signInWithEmailAndPassword(email, password)
-      .then(result => dispatch(signInSuccess(result)))
+    firebaseAuth.signInWithPopup(provider)
+      .then(result => dispatch(createProfileFromProvider(result.user)))
       .catch(error => dispatch(signInError(error)));
   };
 }
@@ -70,14 +76,74 @@ export function signInWithTwitter() {
 export function signInWithFacebook() {
   return authenticate(new firebase.auth.FacebookAuthProvider());
 }
-export function signOut() {
+export function createProfileFromProvider(result){
   return dispatch => {
-    firebaseAuth.signOut()
-      .then(() => dispatch(signOutSuccess()));
+    let userRef = usersRef.child(result.uid);
+    let userInfo = {
+      uid: result.uid,
+      displayName: result.displayName
+    }
+    userRef.update(userInfo, error => {
+      if (error) {
+        console.error('ERROR @ User :', error);
+      } else{
+        return {
+          type: SIGN_IN_SUCCESS,
+          payload: result.user
+        };
+      }
+    });
+  }
+}
+
+/* Email Signup
+=================================================== */
+export function createUserWithEmail(email, password, firstName, lastName) {
+  return (dispatch) => {
+    firebaseAuth.createUserWithEmailAndPassword(email, password)
+      .then(result => dispatch(createProfileFromEmail(result, firstName, lastName)))
+      .catch(error => dispatch(signInError(error)));
   };
 }
-export function signOutSuccess() {
+export function signInWithEmail(email, password) {
+  return dispatch => {
+    firebaseAuth.signInWithEmailAndPassword(email, password)
+      .then(result => dispatch(signInSuccess(result)))
+      .catch(error => dispatch(signInError(error)));
+  };
+}
+export function createProfileFromEmail(result, firstName, lastName){
+  return dispatch => {
+    let userRef = usersRef.child(result.uid);
+    let userInfo = {
+      uid: result.uid,
+      email: result.email,
+      first_name: firstName,
+      last_name: lastName
+    }
+    userRef.update(userInfo, error => {
+      if (error) {
+        console.error('ERROR @ User :', error);
+      } else{
+        return {
+          type: SIGN_IN_SUCCESS,
+          payload: result.user
+        };
+      }
+    });
+  }
+}
+
+/* Has Error
+=================================================== */
+export function hasError(error) {
   return {
-    type: SIGN_OUT_SUCCESS
+    type: HAS_ERROR,
+    payload: error
+  };
+}
+export function resetErrors() {
+  return {
+    type: RESET_ERRORS
   };
 }

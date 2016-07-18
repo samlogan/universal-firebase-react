@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { signInWithFacebook, signInWithEmail } from '../actions/actions_firebase';
+import { signInWithFacebook, signInWithEmail, resetErrors } from '../actions/actions_firebase';
 import LoginForm from './auth/login_form';
 import ProviderLogin from './auth/provider_login';
 
@@ -8,15 +8,19 @@ class Home extends Component {
   static contextTypes = {
     router: PropTypes.object
   };
+  componentWillMount(){
+    this.props.resetErrors();
+  }
   componentWillReceiveProps(nextProps){
-    const { auth } = nextProps.auth;
-    if(auth.uid){
+    const { auth, loggedIn } = nextProps.auth;
+    {console.log(nextProps)}
+    if(loggedIn){
       this.context.router.push(`/user/${auth.uid}`);
     }
   }
   render() {
-    const { auth } = this.props.auth;
-    if(auth.uid){
+    const { auth, loggedIn } = this.props.auth;
+    if(loggedIn){
       return <span></span>
     }
     return (
@@ -34,4 +38,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { signInWithFacebook, signInWithEmail })(Home);
+export default connect(mapStateToProps, { signInWithFacebook, signInWithEmail, resetErrors })(Home);
