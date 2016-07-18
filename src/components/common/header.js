@@ -10,8 +10,8 @@ class Header extends Component {
     this.props.checkAuth();
   }
   getAuthState(authData){
-    if(!authData){
-      return <p>Please sign in</p>
+    if(!authData.uid){
+      return <span></span>
     } else{
       if(authData.photoURL && authData.displayName){
         return (
@@ -24,6 +24,14 @@ class Header extends Component {
         return (
           <div>
             <p>Hey there {authData.displayName}</p>
+            <button className="btn btn-danger" onClick={() => this.signOut()}>Sign out</button>
+          </div>
+        )
+      }
+      else if(authData && !authData.photoURL && !authData.displayName) {
+        return (
+          <div>
+            <p>Hey there</p>
             <button className="btn btn-danger" onClick={() => this.signOut()}>Sign out</button>
           </div>
         )

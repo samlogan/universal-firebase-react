@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { signInWithFacebook } from '../actions/actions_firebase';
+import { signInWithFacebook, signInWithEmail } from '../actions/actions_firebase';
+import LoginForm from './auth/login_form';
+import ProviderLogin from './auth/provider_login';
 
 class Home extends Component {
   static contextTypes = {
@@ -14,9 +16,13 @@ class Home extends Component {
   }
   render() {
     const { auth } = this.props.auth;
+    if(auth.uid){
+      return <span></span>
+    }
     return (
       <div>
-        {auth.uid ? '' : <button className="btn btn-primary" onClick={() => this.props.signInWithFacebook()}>Sign in with Facebook</button>}
+        <LoginForm error={this.props.auth.error} loginFunction={(email,password)=>this.props.signInWithEmail(email,password)} />
+        <ProviderLogin loginFunction={() => this.props.signInWithFacebook()} provider={'Facebook'} />
       </div>
     );
   }
@@ -28,4 +34,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { signInWithFacebook })(Home);
+export default connect(mapStateToProps, { signInWithFacebook, signInWithEmail })(Home);

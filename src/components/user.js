@@ -5,6 +5,9 @@ import { signInWithFacebook } from '../actions/actions_firebase';
 class User extends Component {
   render() {
     const { auth } = this.props.auth;
+    if(!auth){
+      return <span></span>
+    }
     return (
       <div>
         <p>User account area for {auth.displayName}</p>

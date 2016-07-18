@@ -14,9 +14,9 @@ export default function(state = INITIAL_STATE, action) {
   case INIT_AUTH:
     return { ...state, auth: action.payload };
   case SIGN_IN_ERROR:
-    return { ...state };
+    return { ...state, auth: {}, error: action.payload };
   case SIGN_IN_SUCCESS:
-    return { ...state, auth: action.payload };
+    return { ...state, auth: action.payload, error: '' };
   case SIGN_OUT_SUCCESS:
     return { ...state, auth: {} };
   default:

@@ -44,6 +44,20 @@ export function signInSuccess(result) {
     payload: result.user
   };
 }
+export function createUserWithEmail(email, password) {
+  return dispatch => {
+    firebaseAuth.createUserWithEmailAndPassword(email, password)
+      .then(result => dispatch(signInSuccess(result)))
+      .catch(error => dispatch(signInError(error)));
+  };
+}
+export function signInWithEmail(email, password) {
+  return dispatch => {
+    firebaseAuth.signInWithEmailAndPassword(email, password)
+      .then(result => dispatch(signInSuccess(result)))
+      .catch(error => dispatch(signInError(error)));
+  };
+}
 export function signInWithGithub() {
   return authenticate(new firebase.auth.GithubAuthProvider());
 }
