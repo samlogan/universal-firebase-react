@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { checkAuth, signOut } from '../../actions/actions_firebase';
+import { Link } from 'react-router';
+import { checkAuth, signOut } from '../../actions/actions_firebase_auth';
 
 class Header extends Component {
   static contextTypes = {
@@ -46,7 +47,7 @@ class Header extends Component {
   render() {
     return (
       <div>
-        <h1>{this.props.title}</h1>
+        <h1><Link to="/">{this.props.title}</Link></h1>
         {this.getAuthState(this.props.auth.auth)}
       </div>
     );

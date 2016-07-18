@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { createUserWithEmail, signInWithFacebook, hasError, resetErrors } from '../actions/actions_firebase';
+import { createUserWithEmail, signInWithFacebook, hasError, resetErrors } from '../actions/actions_firebase_auth';
 import RegisterForm from './auth/register_form';
 import ProviderLogin from './auth/provider_login';
 

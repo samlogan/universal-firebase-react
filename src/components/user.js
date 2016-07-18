@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { signInWithFacebook } from '../actions/actions_firebase';
+import { signInWithFacebook } from '../actions/actions_firebase_auth';
 
 class User extends Component {
   static contextTypes = {
