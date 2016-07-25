@@ -13,7 +13,6 @@ class Register extends Component {
   }
   componentWillReceiveProps(nextProps){
     const { auth, loggedIn } = nextProps.auth;
-    {console.log(nextProps)}
     if(loggedIn){
       this.context.router.push(`/user/${auth.uid}`);
     }
@@ -41,9 +40,9 @@ class Register extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ auth }) {
   return {
-    auth: state.auth
+    auth
   };
 }
 

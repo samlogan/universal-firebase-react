@@ -13,7 +13,6 @@ class Home extends Component {
   }
   componentWillReceiveProps(nextProps){
     const { auth, loggedIn } = nextProps.auth;
-    {console.log(nextProps)}
     if(loggedIn){
       this.context.router.push(`/user/${auth.uid}`);
     }
@@ -32,9 +31,9 @@ class Home extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ auth }) {
   return {
-    auth: state.auth
+    auth
   };
 }
 

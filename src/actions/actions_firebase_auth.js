@@ -80,7 +80,6 @@ export function signInWithFacebook() {
 }
 export function createProfileFromProvider(result){
   return dispatch => {
-    console.log('sdsddssd',result);
     let userRef = usersRef.child(result.uid);
     let userInfo = {
       uid: result.uid,
