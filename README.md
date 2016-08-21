@@ -11,3 +11,5 @@ Clone it, install the dependencies, enter your Firebase credentials and start up
 	> add your Firebase credentials here: src/firebase/config.js
 	> npm start
 ```
+
+Visit localhost:3000 in your browser
