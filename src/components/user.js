@@ -31,7 +31,7 @@ class User extends Component {
   }
   getNotes(notes){
     if(notes.length == 0){
-      return <li className="list-group-item disabled">Add a note above</li>
+      return <li className="list-group-item disabled">Add a note above</li>;
     }
     return notes.map((noteItem, index) => {
       return (
@@ -45,14 +45,14 @@ class User extends Component {
   render() {
     const { auth: { auth, loggedIn }, notes: { notes, alert, deleted_note }, fields: { note }, handleSubmit } = this.props;
     if(!loggedIn){
-      return <span></span>
+      return <span></span>;
     }
     return (
       <div>
         <h2>{auth.displayName} Note List</h2>
-        {alert.success ? <Alert type="success" message={alert.success} /> : '' }
-        {alert.error ? <Alert type="error" message={alert.error} /> : '' }
-        {alert.error == 'Your note was deleted' ? <a href="" onClick={(event, note) => this.undoDelete(event, this.props.notes.deleted_note)}>Undo delete</a> : '' }
+        {alert.success ? <Alert type="success" message={alert.success} /> : ''}
+        {alert.error ? <Alert type="error" message={alert.error} /> : ''}
+        {alert.error == 'Your note was deleted' ? <a href="" onClick={(event, note) => this.undoDelete(event, this.props.notes.deleted_note)}>Undo delete</a> : ''}
         <form className="form-inline" onSubmit={handleSubmit(this.addNote.bind(this))}>
           <InputField type="text" placeholder="Enter Note" field={note} />
           <button className="btn btn-primary">Add Note</button>
@@ -80,6 +80,18 @@ function validate(values) {
   }
   return errors;
 }
+
+User.propTypes = {
+  params: React.PropTypes.object.isRequired,
+  auth: React.PropTypes.object.isRequired,
+  fields: React.PropTypes.object.isRequired,
+  notes: React.PropTypes.object.isRequired,
+  noteListeners: React.PropTypes.func.isRequired,
+  resetAlerts: React.PropTypes.func.isRequired,
+  pushNote: React.PropTypes.func.isRequired,
+  deleteNote: React.PropTypes.func.isRequired,
+  handleSubmit: React.PropTypes.func.isRequired
+};
 
 export default reduxForm({
   form: 'NoteForm',

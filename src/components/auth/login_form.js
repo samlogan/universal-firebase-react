@@ -5,20 +5,19 @@ import { getErrorFromCode } from '../../config/validation';
 
 class LoginForm extends Component {
   getErrorMessage(code){
-    console.log(code);
     if(code === "auth/invalid-email"){
-      return "Please check that you have entered your email address correctly"
+      return "Please check that you have entered your email address correctly";
     }
     if(code === "auth/user-not-found"){
-      return "We were unable to find a user with that email address"
+      return "We were unable to find a user with that email address";
     }
     if(code === "auth/wrong-password"){
-      return "Incorrect password, please try again"
+      return "Incorrect password, please try again";
     }
   }
   handleSubmit(e,email,password){
     e.preventDefault();
-    this.props.loginFunction(email, password)
+    this.props.loginFunction(email, password);
   }
   render() {
     const { error } = this.props;
@@ -37,5 +36,10 @@ class LoginForm extends Component {
     );
   }
 }
+
+LoginForm.propTypes = {
+  error: React.PropTypes.object.isRequired,
+  loginFunction: React.PropTypes.func.isRequired
+};
 
 export default LoginForm;

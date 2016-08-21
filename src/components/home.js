@@ -20,7 +20,7 @@ class Home extends Component {
   render() {
     const { auth, loggedIn } = this.props.auth;
     if(loggedIn){
-      return <span></span>
+      return <span></span>;
     }
     return (
       <div>
@@ -36,5 +36,12 @@ function mapStateToProps({ auth }) {
     auth
   };
 }
+
+Home.propTypes = {
+  auth: React.PropTypes.object.isRequired,
+  resetErrors: React.PropTypes.func.isRequired,
+  signInWithEmail: React.PropTypes.func.isRequired,
+  signInWithFacebook: React.PropTypes.func.isRequired
+};
 
 export default connect(mapStateToProps, { signInWithFacebook, signInWithEmail, resetErrors })(Home);

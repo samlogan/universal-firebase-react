@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import { firebaseAuth, firebaseDb } from '../config/firebase';
 import {
   INIT_AUTH,
@@ -16,7 +17,6 @@ const usersRef = firebaseDb.ref(`users`);
 export function checkAuth() {
   return dispatch => {
     firebaseAuth.onAuthStateChanged(function(user) {
-      console.log(user)
       if (user) {
         dispatch({
           type: INIT_AUTH,
@@ -28,7 +28,7 @@ export function checkAuth() {
         });
       }
     });
-  }
+  };
 }
 /* Sign in / Sign off actions
 =================================================== */
@@ -88,7 +88,7 @@ export function createProfileFromProvider(result){
       email: result.providerData[0].email,
       providerType: result.providerData[0].providerId,
       photoURL: result.providerData[0].photoURL
-    }
+    };
     userRef.update(userInfo, error => {
       if (error) {
         console.error('ERROR @ User :', error);
@@ -99,7 +99,7 @@ export function createProfileFromProvider(result){
         };
       }
     });
-  }
+  };
 }
 
 /* Email Signup
@@ -126,7 +126,7 @@ export function createProfileFromEmail(result, firstName, lastName){
       email: result.email,
       first_name: firstName,
       last_name: lastName
-    }
+    };
     userRef.update(userInfo, error => {
       if (error) {
         console.error('ERROR @ User :', error);
@@ -137,7 +137,7 @@ export function createProfileFromEmail(result, firstName, lastName){
         };
       }
     });
-  }
+  };
 }
 
 /* Has Error

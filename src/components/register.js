@@ -24,7 +24,7 @@ class Register extends Component {
   render() {
     const { loggedIn } = this.props.auth;
     if(loggedIn){
-      return <span>You are logged in</span>
+      return <span>You are logged in</span>;
     }
     return (
       <div>
@@ -45,5 +45,14 @@ function mapStateToProps({ auth }) {
     auth
   };
 }
+
+Register.propTypes = {
+  auth: React.PropTypes.object.isRequired,
+  history: React.PropTypes.object.isRequired,
+  resetErrors: React.PropTypes.func.isRequired,
+  hasError: React.PropTypes.func.isRequired,
+  createUserWithEmail: React.PropTypes.func.isRequired,
+  signInWithFacebook: React.PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, { createUserWithEmail, signInWithFacebook, hasError, resetErrors })(Register);

@@ -12,7 +12,7 @@ class Header extends Component {
   }
   getAuthState(authData){
     if(!this.props.auth.loggedIn){
-      return <span></span>
+      return <span></span>;
     } else{
       if(authData.photoURL && authData.displayName){
         return (
@@ -20,14 +20,14 @@ class Header extends Component {
             <p><img src={authData.photoURL} /> Hey there {authData.displayName}</p>
             <button className="btn btn-danger" onClick={() => this.signOut()}>Sign out</button>
           </div>
-        )
+        );
       } else if(!authData.photoURL && authData.displayName) {
         return (
           <div>
             <p>Hey there {authData.displayName}</p>
             <button className="btn btn-danger" onClick={() => this.signOut()}>Sign out</button>
           </div>
-        )
+        );
       }
       else if(authData && !authData.photoURL && !authData.displayName) {
         return (
@@ -35,9 +35,9 @@ class Header extends Component {
             <p>Hey there</p>
             <button className="btn btn-danger" onClick={() => this.signOut()}>Sign out</button>
           </div>
-        )
+        );
       }
-      return <p></p>
+      return <p></p>;
     }
   }
   signOut(){
@@ -57,5 +57,12 @@ class Header extends Component {
 function mapStateToProps(state) {
   return { auth: state.auth };
 }
+
+Header.propTypes = {
+  title: React.PropTypes.string.isRequired,
+  auth: React.PropTypes.object.isRequired,
+  checkAuth: React.PropTypes.func.isRequired,
+  signOut: React.PropTypes.func.isRequired
+};
 
 export default connect(mapStateToProps, { checkAuth, signOut })(Header);

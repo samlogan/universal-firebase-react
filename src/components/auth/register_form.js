@@ -6,11 +6,11 @@ class RegisterForm extends Component {
   handleSubmit(e,email,password, firstName, lastName){
     e.preventDefault();
     if(!this.refs.firstName.value){
-      this.props.validationFunction('No First Name')
+      this.props.validationFunction('No First Name');
     } else if(!this.refs.lastName.value){
-      this.props.validationFunction('No Last Name')
+      this.props.validationFunction('No Last Name');
     } else {
-      this.props.registerFunction(email, password, firstName, lastName)
+      this.props.registerFunction(email, password, firstName, lastName);
     }
   }
   render() {
@@ -31,5 +31,12 @@ class RegisterForm extends Component {
     );
   }
 }
+
+RegisterForm.propTypes = {
+  history: React.PropTypes.string.isRequired,
+  error: React.PropTypes.object.isRequired,
+  validationFunction: React.PropTypes.func.isRequired,
+  registerFunction: React.PropTypes.func.isRequired
+};
 
 export default RegisterForm;

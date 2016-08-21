@@ -25,11 +25,11 @@ export default function(state = INITIAL_STATE, action) {
   case SIGN_OUT_SUCCESS:
     return { ...state, auth: null, loggedIn: false };
   case NOT_SIGNED_IN:
-    return { ...state, auth: null, loggedIn: false }
+    return { ...state, auth: null, loggedIn: false };
   case HAS_ERROR:
-    return { ...state, error: { code: action.payload } }
+    return { ...state, error: { code: action.payload } };
   case RESET_ERRORS:
-    return { ...state, error: '' }
+    return { ...state, error: '' };
   default:
     return state;
   }

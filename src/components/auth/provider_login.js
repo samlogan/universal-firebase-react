@@ -11,4 +11,10 @@ class ProviderLogin extends Component {
   }
 }
 
+ProviderLogin.propTypes = {
+  provider: React.PropTypes.string.isRequired,
+  error: React.PropTypes.object.isRequired,
+  loginFunction: React.PropTypes.func.isRequired
+};
+
 export default ProviderLogin;

@@ -11,8 +11,6 @@ const usersRef = firebaseDb.ref(`users`);
 /* Push & Delete
 =================================================== */
 export function pushNote(userID, note) {
-  console.log('userID', userID);
-  console.log('note', note);
   return (dispatch) => {
     const postRef = usersRef.child(userID).child('notes').push();
     postRef.set(note, error => {
@@ -41,13 +39,13 @@ export function deleteNote(userID,key){
 =================================================== */
 export function noteListeners(userID) {
   return (dispatch) => {
-    const notesRef = usersRef.child(userID).child('notes')
+    const notesRef = usersRef.child(userID).child('notes');
     notesRef.on('value', snapshot => {
-      let noteArr = []
+      let noteArr = [];
       snapshot.forEach((childSnapshot) => {
         let attr = childSnapshot.val();
         attr.key = childSnapshot.key;
-        noteArr.push(attr)
+        noteArr.push(attr);
       });
       dispatch({
         type: FETCH_NOTES,
