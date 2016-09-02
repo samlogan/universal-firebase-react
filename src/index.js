@@ -6,7 +6,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { Router, browserHistory } from 'react-router';
 import routes from './config/routes';
 import reducers from './reducers';
-import styles from '../style/styles.scss';
+import styles from '../assets/scss/styles.scss';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 

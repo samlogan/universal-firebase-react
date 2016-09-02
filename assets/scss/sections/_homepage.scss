@@ -1,0 +1,18 @@
+ .class {
+   background-image: url('../img/insta-thumb.jpg');
+   color: #000;
+   &:before {
+     font-family: 'distil';
+     content: $facebook;
+     font-size: 20px;
+     color: #000;
+   }
+ }
+
+
+@include media($tablet) {
+
+}
+@include media($mobile) {
+
+}
