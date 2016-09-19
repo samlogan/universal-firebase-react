@@ -17,11 +17,11 @@ module.exports = {
     includePaths: [ 'assets/style/scss' ]
   },
   plugins: [
-  new webpack.DefinePlugin({
-    'process.env': {
-      'NODE_ENV': JSON.stringify('production')
-    }
-  }),
+  // new webpack.DefinePlugin({
+  //   'process.env': {
+  //     'NODE_ENV': JSON.stringify('production')
+  //   }
+  // }),
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin('assets/css/style.css',
     new webpack.optimize.UglifyJsPlugin({
