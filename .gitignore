@@ -1,0 +1,61 @@
+# Numerous always-ignore extensions
+*.gz
+*.rar
+*.tar
+*.zip
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+*.lock
+
+# OS or Editor folders
+__MACOSX/
+.DS_Store
+.cache
+.project
+.settings
+.tags
+.tmproj
+nbproject
+Thumbs.db
+tags
+
+# NPM packages folder.
+node_modules/
+
+# Brunch folder for temporary files.
+tmp/
+
+# Bower stuff.
+bower_components/
+
+# API Docs
+docs/api/
+
+# DotEnv
+.env
+
+# Build files
+compiled
+public/assets/*
+!public/assets/css/
+!public/assets/fonts/
+!public/assets/images/
+!public/assets/sass/
+
+# DS_Store :vomit:
+public/assets/css/.DS_Store
+public/assets/fonts/.DS_Store
+public/assets/images/.DS_Store
+public/assets/sass/.DS_Store
+public/assets/sass/*/.DS_Store
+public/assets/sass/*/*/.DS_Store
+public/assets/sass/*/*/*/.DS_Store
+public/assets/sass/*/*/*/.DS_Store

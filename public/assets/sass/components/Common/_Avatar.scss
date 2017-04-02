@@ -1,0 +1,33 @@
+$small-size: 40px;
+$medium-size: 100px; // Default
+$large-size: 150px;
+
+.avatar{
+  display: inline-block;
+  text-align: center;
+  .photo{
+    width: $medium-size;
+    height: $medium-size;
+    line-height: $medium-size;
+    margin: 5px 0;
+    border-radius: 50%;
+    background-color: #EEE;
+    background-size: cover;
+    font-size: 22px;
+    font-weight: 900;
+    color: lighten($textcolor, 50%);
+    &.small{
+      width: $small-size;
+      height: $small-size;
+      line-height: $small-size;
+    }
+    &.large{
+      width: $large-size;
+      height: $large-size;
+      line-height: $large-size;
+    }
+    &.upload{
+      cursor: pointer;
+    }
+  }
+}

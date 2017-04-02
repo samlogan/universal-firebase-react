@@ -1,0 +1,14 @@
+.navigation{
+  ul{
+    li{
+      display: inline-block;
+      a{
+        display: block;
+        padding: 15px 15px;
+        &:first-child{
+          padding-left: 0;
+        }
+      }
+    }
+  }
+}
