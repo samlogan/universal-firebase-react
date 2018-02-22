@@ -5,38 +5,61 @@ import { fetchData } from './fetch-data';
 import AuthPage from './containers/AuthPage';
 import AuthHandler from './containers/AuthHandler';
 import UnAuthHandler from './containers/UnAuthHandler';
-// Import containers used for below routes
 import App from './containers/App';
-import Home from './containers/Home';
-import Post from './containers/Post';
-import Account from './containers/Account';
-import AddPost from './containers/AddPost';
 
-// Map paths to components
-// Dynamic params declared using :
-// Use name={} for switch statement in fetchData function
-// Declare function to retreive data on the server using fetchData
+function asyncComponent(getComponent) {
+  return class AsyncComponent extends React.Component {
+    static Component = null;
+    state = { Component: AsyncComponent.Component };
 
-// AuthHandler
-// Handles protected routes, captures requested URL and redirects on login
+    componentWillMount() {
+      if (!this.state.Component) {
+        getComponent().then(({ default: Component }) => {
+          AsyncComponent.Component = Component;
+          this.setState({ Component });
+        }).catch(err => console.error(err));
+      }
+    }
 
-// UnAuthHandler
-// redirects user to account if accessing login, register routes etc
+    render() {
+      const { Component } = this.state;
+      if (Component) {
+        return <Component {...this.props} />;
+      }
+      return null;
+    }
+  };
+}
 
-export default () => {
-  return (
-    <Route path="/" component={App} name="App">
-      <IndexRoute component={Home} name="Home" fetchData={fetchData} />
-      <Route path="posts/:id" component={Post} name="Post" fetchData={fetchData} />
-      <Route component={AuthHandler}>
-        <Route path="account/:uid" component={Account} />
-        <Route path="add" component={AddPost} />
-      </Route>
-      <Route component={UnAuthHandler}>
-        <Route path="login" component={AuthPage} />
-        <Route path="register" component={AuthPage} />
-        <Route path="forgotten" component={AuthPage} />
-      </Route>
-    </Route>
-  );
-};
+export default [{
+  component: App,
+  routes: [{
+    path: '/',
+    exact: true,
+    name: "Home",
+    fetchData,
+    component: asyncComponent(() => import(/* webpackChunkName: "Home" */ './containers/Home')),
+  }, {
+    path: '/posts/:id',
+    name: 'Post',
+    fetchData,
+    component: asyncComponent(() => import(/* webpackChunkName: "Post" */ './containers/Post')),
+  }, {
+    path: '/account/:uid',
+    name: "Account",
+    component: asyncComponent(() => import(/* webpackChunkName: "Account" */ './containers/Account')),
+  }, {
+    path: '/add',
+    component: asyncComponent(() => import(/* webpackChunkName: "Add Post" */ './containers/AddPost')),
+  }, {
+    path: '/login',
+    component: asyncComponent(() => import(/* webpackChunkName: "Login" */ './containers/AuthPage')),
+  }, {
+    path: '/register',
+    component: asyncComponent(() => import(/* webpackChunkName: "Register" */ './containers/AuthPage')),
+  }, {
+    path: '/forgotten',
+    component: asyncComponent(() => import(/* webpackChunkName: "Auth Page" */ './containers/AuthPage')),
+  }],
+
+}];

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { renderRoutes } from 'react-router-config';
 import { connect } from 'react-redux';
 import { checkAuth, signOut } from '../actions/firebase';
 import Header from '../components/Common/Header';
@@ -12,7 +13,7 @@ class App extends Component {
     if (this.props.loggedIn !== nextProps.loggedIn) nextProps.checkAuth();
   }
   render() {
-    const { children, location, alerts, profile, loggedIn, signOut } = this.props;
+    const { route, location, alerts, profile, loggedIn, signOut } = this.props;
     return (
       <div className={location.pathname === '/' ? 'home' : location.pathname.replace(/\//g, '')}>
         <Alert alerts={alerts} />
@@ -22,7 +23,7 @@ class App extends Component {
           signOut={signOut}
           closeModal={Object.keys(alerts).find(key => alerts[key])}
         />
-        {children}
+        {renderRoutes(route.routes)}
       </div>
     );
   }

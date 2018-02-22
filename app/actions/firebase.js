@@ -1,5 +1,6 @@
 import firebase from 'firebase';
-import { browserHistory } from 'react-router';
+// import { browserHistory } from 'react-router';
+import { push } from 'react-router-redux';
 import { firebaseAuth, firebaseDb } from '../utils/firebase';
 import { getErrorFromCode } from '../utils/firebase/validation';
 import { postAlert } from './alerts';
@@ -31,12 +32,12 @@ export const signInError = (error) => dispatch => {
 export const signInSuccess = (profile, reroute, redirect) => dispatch => {
   const nextPath = !redirect ? `/account/${profile.uid}` : redirect;
   dispatch({ type: SIGN_IN_SUCCESS, payload: profile});
-  if (reroute) browserHistory.push(nextPath);
+  if (reroute) dispatch(push(nextPath));
 };
 export const signOutSuccess = () => (dispatch) => {
   dispatch({type: SIGN_OUT_SUCCESS});
   dispatch(postAlert('You have successfully signed out', 'success'));
-  browserHistory.push('/');
+  dispatch(push('/'));
 };
 export const signOut = (event) => async dispatch => {
   try {
@@ -155,10 +156,11 @@ export const resetPasswordFromEmail = (email) => async dispatch => {
 };
 /* Check Auth
 =================================================== */
-export const checkAuth = () => async dispatch => {
-  const user = await firebaseAuth.onAuthStateChanged();
-  if (user) dispatch(fetchProfile(user, false));
-  else dispatch({ type: INIT_AUTH });
+export const checkAuth = () => dispatch => {
+  firebaseAuth.onAuthStateChanged(user => {
+    if (user) dispatch(fetchProfile(user, false));
+    else dispatch({ type: INIT_AUTH });
+  });
 };
 /* Handle redirecting user post signin
 =================================================== */

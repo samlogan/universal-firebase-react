@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { createUserWithEmail, signInWithFacebook, signInWithGoogle } from '../../actions/firebase';
 import { ValidationError } from './ValidationError';
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 import { clearRedirect } from '../actions/firebase';
 import LoginForm from '../components/Auth/LoginForm';
 import RegisterForm from '../components/Auth/RegisterForm';
@@ -40,9 +39,9 @@ class AuthPage extends Component {
   }
   handleAuthRouteChange(event, authType) {
     event.preventDefault();
-    if (authType === 'login') browserHistory.push('/login');
-    if (authType === 'register') browserHistory.push('/register');
-    if (authType === 'forgottenPassword') browserHistory.push('/forgotten');
+    if (authType === 'login') this.props.history.replace('/login');
+    if (authType === 'register') this.props.history.replace('/register');
+    if (authType === 'forgottenPassword') this.props.history.replace('/forgotten');
   }
   render() {
     const { location } = this.props;

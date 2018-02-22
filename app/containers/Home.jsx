@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Head } from '../components/Common/Head';
 import { Loading } from '../components/Content/Loading';
 import { FourOhFour } from '../components/Content/FourOhFour';
@@ -15,6 +15,7 @@ class Home extends Component {
       <main className="container">
         <Head title="Welcome" />
         <div className="wrapper">
+          <p>This is home</p>
           <PostList posts={posts} />
         </div>
       </main>

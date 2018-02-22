@@ -1,15 +1,15 @@
-import axios from 'axios';
-import { createMemoryHistory, match } from 'react-router';
-import createRoutes from '../../app/routes';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import createMemoryHistory from 'history/createMemoryHistory';
+import { renderRoutes, matchRoutes } from 'react-router-config';
+import Helmet from 'react-helmet';
+import { Provider } from 'react-redux';
+import { StaticRouter } from 'react-router';
 import configureStore from '../../app/utils/configureStore';
 import * as types from '../../app/actions/types';
-import { baseURL } from '../../config/app';
 import pageRenderer from './pageRenderer';
 import fetchDataForRoute from '../../app/utils/fetchDataForRoute';
-import fetchDataForApp from '../../app/utils/fetchDataForApp';
-
-// configure baseURL for axios requests (for serverside API calls)
-axios.defaults.baseURL = baseURL;
+import routes from '../../app/routes';
 
 /*
  * Export render function to be used in server/config/routes.js
@@ -19,61 +19,30 @@ axios.defaults.baseURL = baseURL;
 export default function render(req, res) {
   const history = createMemoryHistory();
   const store = configureStore({}, history);
-  const routes = createRoutes(store);
-
-  /*
-   * From the react-router docs:
-   *
-   * This function is to be used for server-side rendering. It matches a set of routes to
-   * a location, without rendering, and calls a callback(err, redirect, props)
-   * when it's done.
-   *
-   * The function will create a `history` for you, passing additional `options` to create it.
-   * These options can include `basename` to control the base name for URLs, as well as the pair
-   * of `parseQueryString` and `stringifyQuery` to control query string parsing and serializing.
-   * You can also pass in an already instantiated `history` object, which can be constructed
-   * however you like.
-   *
-   * The three arguments to the callback function you pass to `match` are:
-   * - err:       A javascript Error object if an error occurred, `undefined` otherwise.
-   * - redirect:  A `Location` object if the route is a redirect, `undefined` otherwise
-   * - props:     The props you should pass to the routing context if the route matched,
-   *              `undefined` otherwise.
-   * If all three parameters are `undefined`, this means that there was no route found matching the
-   * given location.
-   */
-
-  function requestSuccess(props, appData) {
-   store.dispatch({ type: types.CREATE_REQUEST });
-   fetchDataForRoute(props)
-     .then(data => {
-       store.dispatch({ type: types.REQUEST_SUCCESS, payload: {...data, ...appData} });
-       const html = pageRenderer(store, props);
-       res.status(200).send(html);
-     })
-     .catch(err => {
-       console.error(err);
-       res.status(500).json(err);
-     });
-  }
-  match({routes, location: req.url}, (err, redirect, props) => {
-    if (err) {
-      res.status(500).json(err);
-    } else if (redirect) {
-      res.redirect(302, redirect.pathname + redirect.search);
-    } else if (props) {
-      // This method waits for all render component
-      // promises to resolve before returning to browser
-      if (props.routes[0].name === 'App') {
-        fetchDataForApp(props)
-        .then(settings => {
-          requestSuccess(props, settings);
-        });
-      } else {
-        requestSuccess(props);
+  if (!req.url || req.url.includes('assets')) return null;
+  const matchedRoutes = matchRoutes(routes, req.url);
+  store.dispatch({ type: types.CREATE_REQUEST });
+  return fetchDataForRoute(matchedRoutes)
+    .then((data) => {
+      store.dispatch({ type: types.REQUEST_SUCCESS, data });
+      const initialState = store.getState();
+      const context = {};
+      const componentHTML = renderToString(
+        <Provider store={store} key="provider">
+          <StaticRouter location={req.url} context={context}>
+            {renderRoutes(routes)}
+          </StaticRouter>
+        </Provider>,
+      );
+      if (context.url) {
+        return res.status(301).redirect(context.url);
       }
-    } else {
-      res.sendStatus(404);
-    }
-  });
+      const headAssets = Helmet.renderStatic();
+      const finalHTML = `<!DOCTYPE html>${pageRenderer({ initialState, componentHTML, headAssets })}`;
+      return res.status(200).send(finalHTML);
+    })
+    .catch((err) => {
+      console.error('renderError', err);
+      res.status(500).json(err);
+    });
 }

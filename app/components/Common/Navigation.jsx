@@ -1,23 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 export const Navigation = props => {
   const { openAuthModal, profile, loggedIn, signOut } = props;
   const getAccountLink = () => {
-    if (loggedIn) return <Link to={`/account/${profile.uid}`}>Hi {profile.firstName}</Link>;
-    return <Link to="#" onClick={(event) => openAuthModal(event, 'register')}>Register</Link>;
+    if (loggedIn) return <NavLink to={`/account/${profile.uid}`}>Hi {profile.firstName}</NavLink>;
+    return <NavLink to="#" onClick={(event) => openAuthModal(event, 'register')}>Register</NavLink>;
   };
   const getLoginLogoutLink = () => {
-    if (loggedIn) return <Link to="#" onClick={(event) => signOut(event)}>Logout</Link>;
-    return <Link to="#" onClick={(event) => openAuthModal(event, 'login')}>Login</Link>;
+    if (loggedIn) return <NavLink to="#" onClick={(event) => signOut(event)}>Logout</NavLink>;
+    return <NavLink to="#" onClick={(event) => openAuthModal(event, 'login')}>Login</NavLink>;
   };
   return (
     <nav className="navigation">
       <ul>
-        <li><Link to="/">Home</Link></li>
+        <li><NavLink to="/">Home</NavLink></li>
         <li>{getAccountLink()}</li>
         <li>{getLoginLogoutLink()}</li>
-        <li><Link to="/add">Add Post</Link></li>
+        <li><NavLink to="/add">Add Post</NavLink></li>
       </ul>
     </nav>
   );

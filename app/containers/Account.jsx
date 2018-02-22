@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { signOut } from '../actions/firebase';
 import { Head } from '../components/Common/Head';
 import { Loading } from '../components/Content/Loading';
