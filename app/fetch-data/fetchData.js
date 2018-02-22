@@ -1,27 +1,29 @@
 import { getFirebaseArray, getFirebaseObject } from '../services/firebaseService';
 
-const fetchData = (params, routeName) => {
-  // Switch statement on routeName from routes.jsx
-  // Fetch data to be loaded serverside
-  switch (routeName) {
-    // App container data
-    case 'App': {
-      return null;
+const fetchData = async (params, routeName) => {
+  try {
+    // Switch statement on routeName from routes.jsx
+    // Fetch data to be loaded serverside
+    switch (routeName) {
+      // App container data
+      case 'App': {
+        return null;
+      }
+      // Home container data
+      case 'Home': {
+        const posts = await getFirebaseArray('posts', { orderByChild: 'uploaded' });
+        return ({ posts });
+      }
+      // Post container data
+      case 'Post': {
+        const post = await getFirebaseObject(`posts/${params.id}`);
+        return ({ post });
+      }
+      default:
+        return null;
     }
-    // Home container data
-    case 'Home': {
-      return getFirebaseArray('posts')
-      .then(posts => ({ posts }))
-      .catch(error => console.log('error', error));
-    }
-    // Post container data
-    case 'Post': {
-      return getFirebaseObject(`posts/${params.id}`)
-      .then(post => ({ post }))
-      .catch(error => console.log('error', error));
-    }
-    default:
-      return null;
+  } catch (error) {
+    return console.error('Error fetching universal data @ fetchData', error);
   }
 };
 

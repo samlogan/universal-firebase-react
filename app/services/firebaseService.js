@@ -1,22 +1,35 @@
 import { firebaseDb } from '../utils/firebase';
 
-export function getFirebaseObject(ref) {
-  return new Promise((resolve, reject) => {
-    const firebaseRef = firebaseDb.ref(ref);
-    return firebaseRef.once('value')
-    .then(snapshot => resolve(snapshot.val()))
-    .catch(error => reject(error));
+export function getRef(ref, filters) {
+  if (!filters) return ref;
+  let firebaseRef = ref;
+  const filterKeyArr = Object.keys(filters);
+  filterKeyArr.forEach((key) => {
+    firebaseRef = firebaseRef[key](filters[key]);
   });
+  return firebaseRef;
 }
 
-export function getFirebaseArray(ref) {
-  return new Promise((resolve, reject) => {
-    const firebaseRef = firebaseDb.ref(ref);
-    return firebaseRef.once('value')
-    .then(snapshot => {
-      const firebaseArr = Object.keys(snapshot.val()).map(key => snapshot.val()[key]);
-      resolve(firebaseArr);
-    })
-    .catch(error => reject(error));
-  });
-}
+export const getFirebaseObject = async (refString, filters, admin) => {
+  try {
+    const db = admin || firebaseDb;
+    const firebaseRef = db.ref(refString);
+    const ref = getRef(firebaseRef, filters);
+    const snapshot = await ref.once('value');
+    return snapshot.val();
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getFirebaseArray = async (refString, filters, admin) => {
+  try {
+    const db = admin || firebaseDb;
+    const firebaseRef = db.ref(refString);
+    const ref = getRef(firebaseRef, filters);
+    const snapshot = await ref.once('value');
+    return Object.keys(snapshot.val()).map(key => snapshot.val()[key]);
+  } catch (error) {
+    return error;
+  }
+};
