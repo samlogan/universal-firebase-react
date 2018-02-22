@@ -29,7 +29,7 @@
     "redux-mock-store": "1.1.2"
   },
   "engines": {
-    "node": "6.x"
+    "node": "6.x||7.x||8.x||9.x"
   },
   "dependencies": {
     "axios": "^0.14.0",
