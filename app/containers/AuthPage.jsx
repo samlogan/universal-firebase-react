@@ -4,6 +4,7 @@ import { clearRedirect } from '../actions/firebase';
 import LoginForm from '../components/Auth/LoginForm';
 import RegisterForm from '../components/Auth/RegisterForm';
 import ForgottenPassword from '../components/Auth/ForgottenPassword';
+import './AuthPage.scss';
 
 class AuthPage extends Component {
   componentWillUnmount() {

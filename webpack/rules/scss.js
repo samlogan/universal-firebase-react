@@ -1,4 +1,3 @@
-const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const postcssImport = require('postcss-import');
 const postcssCssnext = require('postcss-cssnext');
@@ -25,6 +24,10 @@ module.exports = ({ production = false, browser = false } = {}) => {
    */
   const localIdentName = 'localIdentName=[name]__[local]___[hash:base64:5]';
 
+  var sassNeatPaths = require("node-neat").with([PATHS.app + "/sass"]).map(function(neatPath) {
+      return "includePaths[]=" + neatPath;
+  }).join("&");
+
   const createCssLoaders = embedCssInBundle => ([
     {
       loader: embedCssInBundle ? 'css-loader' : 'css-loader/locals',
@@ -36,15 +39,17 @@ module.exports = ({ production = false, browser = false } = {}) => {
       }
     },
     {
-      loader: 'postcss-loader',
+      loader: "sass-loader",
+    },
+    {
+      loader: 'sass-resources-loader',
       options: {
-        ident: 'postcss',
-        plugins: [
-          postcssImport({ path: path.resolve(PATHS.app, './css') }),
-          postcssCssnext({ browsers: ['> 1%', 'last 2 versions'] }),
-          postcssReporter({ clearMessages: true })
+        resources: [
+          PATHS.app + '/sass/styles.scss',
+          PATHS.app + '/sass/base/**/*.scss',
+          PATHS.app + '/sass/helpers/**/*.scss',
         ]
-      }
+     },
     }
   ]);
 
@@ -62,7 +67,7 @@ module.exports = ({ production = false, browser = false } = {}) => {
   const browserLoaders = createBrowserLoaders(production)(createCssLoaders(true));
 
   return {
-    test: /\.css$/,
+    test: /\.scss$/,
     use: browser ? browserLoaders : serverLoaders,
     include: PATHS.app
   };

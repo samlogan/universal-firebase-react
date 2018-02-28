@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { signInWithEmail, signInWithFacebook, signInWithGoogle } from '../../actions/firebase';
 import { ValidationError } from './ValidationError';
+import './LoginForm.scss';
 
 let LoginForm = class LoginForm extends Component {
   submit(values) {

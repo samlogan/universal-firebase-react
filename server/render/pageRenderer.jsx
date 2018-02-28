@@ -1,5 +1,5 @@
 import React from 'react';
-import { createAppScript, createTrackingScript, createStylesheets } from './staticAssets';
+import staticAssets from './static-assets';
 
 const buildPage = ({ componentHTML, initialState, headAssets }) => {
   return `
@@ -9,13 +9,13 @@ const buildPage = ({ componentHTML, initialState, headAssets }) => {
     ${headAssets.title.toString()}
     ${headAssets.meta.toString()}
     ${headAssets.link.toString()}
-    ${createStylesheets()}
-    ${createTrackingScript()}
+    ${staticAssets.createStylesheets()}
+    ${staticAssets.createTrackingScript()}
   </head>
   <body>
     <div id="app">${componentHTML}</div>
     <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}</script>
-    ${createAppScript()}
+    ${staticAssets.createAppScript()}
   </body>
 </html>`;
 };

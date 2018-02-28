@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import './Navigation.scss';
 
 export const Navigation = props => {
   const { openAuthModal, profile, loggedIn, signOut } = props;

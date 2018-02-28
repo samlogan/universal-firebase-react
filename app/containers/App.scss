@@ -1,8 +1,14 @@
 /*=============================================>>>>>
 = App Styles =
 ===============================================>>>>>*/
+body {
+
+}
+.navigation {
+  background: red;
+}
 .wrapper{
-  max-width: $max-width;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }

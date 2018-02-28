@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Avatar.scss';
 
 export default class Avatar extends Component {
   uploadPhoto(event, upload) {
