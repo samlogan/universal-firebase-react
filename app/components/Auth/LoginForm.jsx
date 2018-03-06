@@ -33,7 +33,7 @@ let LoginForm = class LoginForm extends Component {
         {title ? <h2 className="form-title">{title}</h2> : null}
         {description ? <p className="form-description">{description}</p> : null}
         {firebase.error ? <p className="form-error">{firebase.error}</p> : null}
-        <form className="fancylabels" onSubmit={handleSubmit((props) => this.submit(props))}>
+        <form className="fancylabels" onSubmit={handleSubmit(props => this.submit(props))}>
           <div className={values && values.email ? 'field active' : 'field'}>
             <label htmlFor="email">Email Address</label>
             <Field name="email" component="input" type="email" placeholder="Email Address" />
@@ -46,9 +46,9 @@ let LoginForm = class LoginForm extends Component {
           </div>
           <button type="submit" className={firebase.authLoading ? 'button loading' : 'button'}>Login</button>
         </form>
-        <Link to="#" className="button provider facebook" onClick={(event) => this.providerSignIn(event, 'facebook')}>Sign in with Facebook</Link>
-        <Link to="#" className="button provider google" onClick={(event) => this.providerSignIn(event, 'google')}>Sign in with Google</Link>
-        <Link to="#" className="sublink" onClick={(event) => switchAuthForm(event, 'forgottenPassword')}>Forgotten Password?</Link>
+        <Link to="#" className="button provider facebook" onClick={event => this.providerSignIn(event, 'facebook')}>Sign in with Facebook</Link>
+        <Link to="#" className="button provider google" onClick={event => this.providerSignIn(event, 'google')}>Sign in with Google</Link>
+        <Link to="#" className="sublink" onClick={event => switchAuthForm(event, 'forgottenPassword')}>Forgotten Password?</Link>
       </div>
     );
   }

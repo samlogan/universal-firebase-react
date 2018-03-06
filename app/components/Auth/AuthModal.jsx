@@ -4,6 +4,20 @@ import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import ForgottenPassword from './ForgottenPassword';
 
+const getModalTitle = (type) => {
+  if (!type) return null;
+  switch (type) {
+    case 'login':
+      return 'Login';
+    case 'register':
+      return 'Register';
+    case 'forgottenPassword':
+      return 'Forgotten Password';
+    default:
+      return null;
+  }
+};
+
 export default class AuthModal extends Component {
   constructor(props) {
     super(props);
@@ -23,19 +37,6 @@ export default class AuthModal extends Component {
   }
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleEscKey, false);
-  }
-  getModalTitle(type) {
-    if (!type) return null;
-    switch (type) {
-      case 'login':
-        return 'Login';
-      case 'register':
-        return 'Register';
-      case 'forgottenPassword':
-        return 'Forgotten Password';
-      default:
-        return null;
-    }
   }
   getAuthForm(type) {
     switch (type) {
@@ -60,13 +61,13 @@ export default class AuthModal extends Component {
     const { active, closeAuthModal } = this.props;
     if (!active) return <span />;
     return (
-      <div className="modal" onClick={(event) => this.handleModalBackgroundClick(event)}>
+      <div className="modal" onClick={event => this.handleModalBackgroundClick(event)}>
         <div className="modal-content">
           <div className="modal-title">
-            <h3>{this.getModalTitle(type)}</h3>
+            <h3>{getModalTitle(type)}</h3>
           </div>
           {this.getAuthForm(type)}
-          <Link className="close" to="#" onClick={(event) => closeAuthModal(event)}>Close</Link>
+          <Link className="close" to="#" onClick={event => closeAuthModal(event)}>Close</Link>
         </div>
       </div>
     );
