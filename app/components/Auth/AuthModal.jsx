@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
@@ -17,6 +18,8 @@ const getModalTitle = (type) => {
       return null;
   }
 };
+
+const appRoot = document ? document.getElementById('app') : null;
 
 export default class AuthModal extends Component {
   constructor(props) {
@@ -60,7 +63,7 @@ export default class AuthModal extends Component {
     const { type } = this.state;
     const { active, closeAuthModal } = this.props;
     if (!active) return <span />;
-    return (
+    return ReactDOM.createPortal(
       <div className="modal" onClick={event => this.handleModalBackgroundClick(event)}>
         <div className="modal-content">
           <div className="modal-title">
@@ -69,7 +72,8 @@ export default class AuthModal extends Component {
           {this.getAuthForm(type)}
           <Link className="close" to="#" onClick={event => closeAuthModal(event)}>Close</Link>
         </div>
-      </div>
+      </div>,
+      appRoot
     );
   }
 }
