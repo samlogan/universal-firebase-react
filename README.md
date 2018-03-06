@@ -51,6 +51,7 @@ const exampleObjWithFilters = await getFirebaseObject('example-firebase-ref', { 
 `app/routes.jsx`
 
 ```
+// Post route with name value
 {
   path: '/posts/:id',
   name: 'Post',
@@ -61,10 +62,23 @@ const exampleObjWithFilters = await getFirebaseObject('example-firebase-ref', { 
 `app/fetch-data/fetchData.js`
 
 ```
-// Post container data
+// Post case in fetchData switch statement
 case 'Post': {
   const posts = await getFirebaseArray('posts', { orderByChild: 'uploaded' });
   return ({ posts });
+}
+```
+`containers/Post.jsx`
+
+```
+// Post container mapStateToProps
+// Key returned in fetchData switch statement becomes available on the app redux state
+function mapStateToProps({app, loading}) {
+  const { post } = app;
+  return {
+    loading,
+    post
+  };
 }
 ```
 
