@@ -1,7 +1,7 @@
 import { trackingID } from '../../../config/app';
 import assets from '../../../public/assets/manifest.json';
 
-const createAppScript = () => `<script async type="text/javascript" charset="utf-8" src="/assets/${assets['app.js']}"></script>`;
+const createAppScript = () => `<script async type="text/javascript" charset="utf-8" src="${assets['app.js']}"></script>`;
 
 const createTrackingScript = () => trackingID ? createAnalyticsSnippet(trackingID) : '';
 
@@ -16,7 +16,7 @@ ga('send', 'pageview');
 
 const createStylesheets = () => `
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed" />
-<link rel="stylesheet" href="/assets/${assets['app.css']}" />
+<link rel="stylesheet" href="${assets['app.css']}" />
 `;
 
 export { createAppScript, createTrackingScript, createStylesheets };
