@@ -22,14 +22,14 @@ const usersRef = firebaseDb.ref('users');
 
 /* Sign in / Sign off actions
 =================================================== */
-export const signInError = (error) => dispatch => {
+export const signInError = error => (dispatch) => {
   console.error('Error signing in', error);
   dispatch({type: SIGN_IN_ERROR, payload: getErrorFromCode(error.code)});
   setTimeout(() => {
     dispatch({ type: RESET_AUTH_ERRORS });
   }, 5000);
 };
-export const signInSuccess = (profile, reroute, redirect) => dispatch => {
+export const signInSuccess = (profile, reroute, redirect) => (dispatch) => {
   const nextPath = !redirect ? `/account/${profile.uid}` : redirect;
   dispatch({ type: SIGN_IN_SUCCESS, payload: profile});
   if (reroute) dispatch(push(nextPath));
@@ -39,7 +39,7 @@ export const signOutSuccess = () => (dispatch) => {
   dispatch(postAlert('You have successfully signed out', 'success'));
   dispatch(push('/'));
 };
-export const signOut = (event) => async dispatch => {
+export const signOut = event => async (dispatch) => {
   try {
     if (event) event.preventDefault();
     await firebaseAuth.signOut();
@@ -50,7 +50,7 @@ export const signOut = (event) => async dispatch => {
 };
 /* Provider Signup
 =================================================== */
-export const createProfileFromProvider = (result, redirect) => async dispatch => {
+export const createProfileFromProvider = (result, redirect) => async (dispatch) => {
   try {
     const userRef = usersRef.child(result.uid);
     const userInfo = {
@@ -73,7 +73,7 @@ export const createProfileFromProvider = (result, redirect) => async dispatch =>
     return console.error('Error creating profile from provider', error);
   }
 };
-const authenticate = (provider, redirect) => async dispatch => {
+const authenticate = (provider, redirect) => async (dispatch) => {
   try {
     dispatch({type: SIGN_IN});
     const result = await firebaseAuth.signInWithPopup(provider);
@@ -82,8 +82,8 @@ const authenticate = (provider, redirect) => async dispatch => {
     dispatch(signInError(error));
   }
 };
-export const signInWithGoogle = (redirect) => authenticate(new firebase.auth.GoogleAuthProvider(), redirect);
-export const signInWithTwitter = (redirect) => authenticate(new firebase.auth.TwitterAuthProvider(), redirect);
+export const signInWithGoogle = redirect => authenticate(new firebase.auth.GoogleAuthProvider(), redirect);
+export const signInWithTwitter = redirect => authenticate(new firebase.auth.TwitterAuthProvider(), redirect);
 export const signInWithGithub = (redirect) => {
   const provider = new firebase.auth.GithubAuthProvider();
   const scopes = ['user', 'repo', 'delete_repo', 'read:org', 'write:org'];
@@ -98,7 +98,7 @@ export const signInWithFacebook = (redirect) => {
 };
 /* Fetch user profile
 =================================================== */
-export const fetchProfile = (result, reroute, redirect) => async dispatch => {
+export const fetchProfile = (result, reroute, redirect) => async (dispatch) => {
   const userRef = usersRef.child(result.uid);
   const snapshot = await userRef.once('value');
   const userInfo = {...snapshot.val(), uid: result.uid};
@@ -106,7 +106,7 @@ export const fetchProfile = (result, reroute, redirect) => async dispatch => {
 };
 /* Email Signup
 =================================================== */
-export const createProfileFromEmail = (result, firstName, lastName) => async dispatch => {
+export const createProfileFromEmail = (result, firstName, lastName) => async (dispatch) => {
   try {
     const userRef = usersRef.child(result.uid);
     const userInfo = {
@@ -121,7 +121,7 @@ export const createProfileFromEmail = (result, firstName, lastName) => async dis
     console.error('Error creating profile from email address', error);
   }
 };
-export const createUserWithEmail = (props) => async (dispatch) => {
+export const createUserWithEmail = props => async (dispatch) => {
   try {
     const { firstName, lastName, email, password } = props;
     dispatch({type: SIGN_IN});
@@ -131,7 +131,7 @@ export const createUserWithEmail = (props) => async (dispatch) => {
     dispatch(signInError(error));
   }
 };
-export const signInWithEmail = (props, redirect) => async dispatch => {
+export const signInWithEmail = (props, redirect) => async (dispatch) => {
   try {
     const { email, password } = props;
     dispatch({type: SIGN_IN});
@@ -141,7 +141,7 @@ export const signInWithEmail = (props, redirect) => async dispatch => {
     dispatch(signInError(error));
   }
 };
-export const resetPasswordFromEmail = (email) => async dispatch => {
+export const resetPasswordFromEmail = email => async (dispatch) => {
   try {
     dispatch({type: PASSWORD_RESET});
     await firebaseAuth.sendPasswordResetEmail(email);
@@ -156,13 +156,13 @@ export const resetPasswordFromEmail = (email) => async dispatch => {
 };
 /* Check Auth
 =================================================== */
-export const checkAuth = () => dispatch => {
-  firebaseAuth.onAuthStateChanged(user => {
+export const checkAuth = () => (dispatch) => {
+  firebaseAuth.onAuthStateChanged((user) => {
     if (user) dispatch(fetchProfile(user, false));
     else dispatch({ type: INIT_AUTH });
   });
 };
 /* Handle redirecting user post signin
 =================================================== */
-export const captureRedirect = (payload) => ({ type: CAPTURE_REDIRECT, payload });
+export const captureRedirect = payload => ({ type: CAPTURE_REDIRECT, payload });
 export const clearRedirect = () => ({ type: CLEAR_REDIRECT });
