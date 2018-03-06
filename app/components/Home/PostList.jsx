@@ -1,7 +1,7 @@
 import React from 'react';
 import { PostListItem } from './PostListItem';
 
-export const PostList = props => {
+export const PostList = (props) => {
   const { posts } = props;
   if (!posts) return <div>No Posts Found</div>;
   return (

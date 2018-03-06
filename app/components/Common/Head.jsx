@@ -36,11 +36,11 @@ export const Head = (props) => {
       title={title}
       defaultTitle={defaultTitle}
       titleAttributes={{itemprop: 'name', lang: 'en'}}
-      meta={meta.map(data => {
+      meta={meta.map((data) => {
         if (data.content) return data;
         return {};
       })}
-      link={links.map(link => {
+      link={links.map((link) => {
         if (link.href) return link;
         return {};
       })}

@@ -5,7 +5,7 @@ import { signOut } from '../actions/firebase';
 import ProtectedRoute from './ProtectedRoute';
 import { Head } from '../components/Common/Head';
 import { FourOhFour } from '../components/Content/FourOhFour';
-import Avatar from '../components/Common/Avatar';
+import { Avatar } from '../components/Common/Avatar';
 
 let Account = class Account extends Component {
   componentWillMount() {

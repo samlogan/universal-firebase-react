@@ -1,7 +1,7 @@
 import React from 'react';
 import './Alert.scss';
 
-export const Alert = props => {
+export const Alert = (props) => {
   const { alerts } = props;
   const alert = Object.keys(alerts).find(key => alerts[key]);
   if (!alert) return <div className="message" />;

@@ -33,7 +33,7 @@ export default class Header extends Component {
   }
   render() {
     const { showAuthModal, authType } = this.state;
-    const { profile, loggedIn, signOut, closeModal } = this.props;
+    const { profile, loggedIn, signOut } = this.props;
     return (
       <header id="banner">
         <div className="wrapper">
@@ -48,7 +48,7 @@ export default class Header extends Component {
             active={showAuthModal}
             type={authType}
             openAuthModal={(event, type) => this.openAuthModal(event, type)}
-            closeAuthModal={(event) => this.closeAuthModal(event)}
+            closeAuthModal={event => this.closeAuthModal(event)}
           />
         </div>
       </header>

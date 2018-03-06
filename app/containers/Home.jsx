@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Head } from '../components/Common/Head';
 import { Loading } from '../components/Content/Loading';
-import { FourOhFour } from '../components/Content/FourOhFour';
 import { PostList } from '../components/Home/PostList';
 
 
