@@ -1,10 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
 import { fetchData } from './fetch-data';
-// Auth pages and handlers
-import AuthPage from './containers/AuthPage';
-import AuthHandler from './containers/AuthHandler';
-import UnAuthHandler from './containers/UnAuthHandler';
 import App from './containers/App';
 
 function asyncComponent(getComponent) {
@@ -36,7 +31,7 @@ export default [{
   routes: [{
     path: '/',
     exact: true,
-    name: "Home",
+    name: 'Home',
     fetchData,
     component: asyncComponent(() => import(/* webpackChunkName: "Home" */ './containers/Home')),
   }, {
@@ -46,20 +41,20 @@ export default [{
     component: asyncComponent(() => import(/* webpackChunkName: "Post" */ './containers/Post')),
   }, {
     path: '/account/:uid',
-    name: "Account",
+    name: 'Account',
     component: asyncComponent(() => import(/* webpackChunkName: "Account" */ './containers/Account')),
   }, {
     path: '/add',
-    component: asyncComponent(() => import(/* webpackChunkName: "Add Post" */ './containers/AddPost')),
+    component: asyncComponent(() => import(/* webpackChunkName: "AddPost" */ './containers/AddPost')),
   }, {
     path: '/login',
-    component: asyncComponent(() => import(/* webpackChunkName: "Login" */ './containers/AuthPage')),
+    component: asyncComponent(() => import(/* webpackChunkName: "AuthPage" */ './containers/AuthPage')),
   }, {
     path: '/register',
-    component: asyncComponent(() => import(/* webpackChunkName: "Register" */ './containers/AuthPage')),
+    component: asyncComponent(() => import(/* webpackChunkName: "AuthPage" */ './containers/AuthPage')),
   }, {
     path: '/forgotten',
-    component: asyncComponent(() => import(/* webpackChunkName: "Auth Page" */ './containers/AuthPage')),
+    component: asyncComponent(() => import(/* webpackChunkName: "AuthPage" */ './containers/AuthPage')),
   }],
 
 }];
