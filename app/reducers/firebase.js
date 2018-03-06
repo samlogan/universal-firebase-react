@@ -14,7 +14,7 @@ import {
 
 const INITIAL_STATE = {
   profile: {},
-  authLoading: false,
+  loading: true,
   loggedIn: false,
   error: '',
   redirect: null
@@ -23,21 +23,21 @@ const INITIAL_STATE = {
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case INIT_AUTH:
-      return { ...INITIAL_STATE, redirect: state.redirect };
+      return { ...INITIAL_STATE, redirect: state.redirect, loading: false };
     case SIGN_IN:
-      return { ...state, authLoading: true };
+      return { ...state, loading: true };
     case SIGN_IN_SUCCESS:
-      return { ...state, profile: action.payload, error: '', redirect: null, loggedIn: true, authLoading: false };
+      return { ...state, profile: action.payload, error: '', redirect: null, loggedIn: true, loading: false };
     case SIGN_IN_ERROR:
-      return { ...state, profile: null, error: action.payload, authLoading: false };
+      return { ...state, profile: null, error: action.payload, loading: false };
     case SIGN_OUT_SUCCESS:
       return { ...state, profile: null, loggedIn: false };
     case PASSWORD_RESET:
-      return { ...state, authLoading: true };
+      return { ...state, loading: true };
     case PASSWORD_RESET_SUCCESS:
-      return { ...state, authLoading: false };
+      return { ...state, loading: false };
     case PASSWORD_RESET_FAILURE:
-      return { ...state, authLoading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
     case CAPTURE_REDIRECT:
       return { ...state, redirect: action.payload };
     case CLEAR_REDIRECT:

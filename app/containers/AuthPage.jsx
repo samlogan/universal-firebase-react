@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { clearRedirect } from '../actions/firebase';
+import ProtectedRoute from './ProtectedRoute';
 import LoginForm from '../components/Auth/LoginForm';
 import RegisterForm from '../components/Auth/RegisterForm';
 import ForgottenPassword from '../components/Auth/ForgottenPassword';
 import './AuthPage.scss';
 
-class AuthPage extends Component {
+let AuthPage = class AuthPage extends Component {
   componentWillUnmount() {
     this.props.clearRedirect();
   }
@@ -54,6 +55,8 @@ class AuthPage extends Component {
       </main>
     );
   }
-}
+};
 
-export default connect(null, {clearRedirect})(AuthPage);
+AuthPage = connect(null, {clearRedirect})(AuthPage);
+
+export default ProtectedRoute(AuthPage);

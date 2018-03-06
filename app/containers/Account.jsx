@@ -2,20 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { signOut } from '../actions/firebase';
+import ProtectedRoute from './ProtectedRoute';
 import { Head } from '../components/Common/Head';
-import { Loading } from '../components/Content/Loading';
 import { FourOhFour } from '../components/Content/FourOhFour';
 import Avatar from '../components/Common/Avatar';
 
-class Account extends Component {
+let Account = class Account extends Component {
   componentWillMount() {
-    const { params, profile, history } = this.props;
+    const { match, profile, history } = this.props;
+    const { params } = match;
     if (params.uid !== profile.uid) {
       history.push(`/account/${profile.uid}`);
     }
   }
   componentWillReceiveProps(nextProps) {
-    const { params, profile, history } = nextProps;
+    const { match, profile, history } = nextProps;
+    const { params } = match;
     if (params.uid !== profile.uid) {
       history.push(`/account/${profile.uid}`);
     }
@@ -37,12 +39,12 @@ class Account extends Component {
           />
           <h4>{firstName}</h4>
           <p>{email}</p>
-          <Link to="#" onClick={(event) => signOut(event)}>Logout</Link>
+          <Link to="#" onClick={event => signOut(event)}>Logout</Link>
         </div>
       </main>
     );
   }
-}
+};
 
 function mapStateToProps({firebase}) {
   const { profile } = firebase;
@@ -51,4 +53,6 @@ function mapStateToProps({firebase}) {
   };
 }
 
-export default connect(mapStateToProps, { signOut })(Account);
+Account = connect(mapStateToProps, { signOut })(Account);
+
+export default ProtectedRoute(Account);
