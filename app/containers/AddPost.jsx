@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import ProtectedRoute from './ProtectedRoute';
 import { Head } from '../components/Common/Head';
 import { addPost } from '../actions/posts';
 import { ValidationError } from '../components/Auth/ValidationError';
@@ -17,7 +18,7 @@ let AddPost = class AddPost extends Component {
       <main className="container">
         <Head title="Add Post" />
         <div className="wrapper">
-          <form onSubmit={handleSubmit((props) => this.submit(props))}>
+          <form onSubmit={handleSubmit(props => this.submit(props))}>
             <div className={values && values.email ? 'field active' : 'field'}>
               <label htmlFor="title">Title</label>
               <Field name="title" component="input" type="text" placeholder="Enter a title for your post" />
@@ -57,4 +58,4 @@ AddPost = reduxForm({
   validate
 })(AddPost);
 AddPost = connect(mapStateToProps, { addPost })(AddPost);
-export default AddPost;
+export default ProtectedRoute(AddPost);

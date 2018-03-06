@@ -28,7 +28,7 @@ const ProtectedRoute = (WrappedComponent) => {
       // If logged in and an unauth protected route (login etc) redirect to account area
       if (loggedIn && this.isUnAuthProtected) return <Redirect to={`/account/${profile.uid}`} />;
       // Bounce back to register page
-      return <Redirect to="/register" />;
+      return <Redirect to="/login" />;
     }
   }
 
