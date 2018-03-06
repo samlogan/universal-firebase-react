@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
+import { isClient } from '../../../config/app';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import ForgottenPassword from './ForgottenPassword';
@@ -19,7 +20,7 @@ const getModalTitle = (type) => {
   }
 };
 
-const appRoot = document ? document.getElementById('app') : null;
+const appRoot = isClient ? document.getElementById('app') : null;
 
 export default class AuthModal extends Component {
   constructor(props) {
@@ -32,14 +33,14 @@ export default class AuthModal extends Component {
     this.setState({ type });
   }
   componentDidMount() {
-    document.addEventListener('keydown', this.handleEscKey, false);
+    if (isClient) document.addEventListener('keydown', this.handleEscKey, false);
   }
   componentWillReceiveProps(nextProps) {
     const { type } = nextProps;
     if (this.props.type !== type) this.setState({ type });
   }
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleEscKey, false);
+    if (isClient) document.removeEventListener('keydown', this.handleEscKey, false);
   }
   getAuthForm(type) {
     switch (type) {
