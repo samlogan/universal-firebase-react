@@ -54,7 +54,7 @@
     "express": "^4.15.4",
     "express-flash": "0.0.2",
     "extract-text-webpack-plugin": "4.0.0-beta.0",
-    "file-loader": "^0.11.2",
+    "file-loader": "^1.1.11",
     "firebase": "^3.7.3",
     "firebase-admin": "^5.9.0",
     "helmet": "^3.8.1",
