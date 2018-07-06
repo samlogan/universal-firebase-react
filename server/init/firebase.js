@@ -4,7 +4,9 @@ import { getFirebaseObject, getFirebaseArray } from '../../app/services/firebase
  * Routes for Firebase admin
  */
 
-export default (app, db) => {
+export default (app, db, auth) => {
+  /* Realtime database endpoints
+  =================================================== */
   // Get array
   app.post('/api/firebase/getarray', async (req, res) => {
     try {
@@ -62,5 +64,40 @@ export default (app, db) => {
     const ref = db.ref(refString);
     await ref.remove();
     res.send({ success: `${refString} deleted` });
+  });
+  /* Authentication endpoints
+  =================================================== */
+  // Create user
+  app.post('/api/firebase/createuser', async (req, res) => {
+    const {
+      email,
+      password,
+      phoneNumber,
+      displayName
+    } = req.body;
+    if (!email || !password) res.status(400).send({ error: 'Did you miss a parameter?' });
+    try {
+      const createUserObj = {
+        email,
+        password,
+        phoneNumber,
+        displayName,
+        emailVerified: false,
+        disabled: false
+      };
+      if (!phoneNumber) delete createUserObj.phoneNumber;
+      const userRecord = await auth.createUser(createUserObj);
+      res.send({ ...userRecord });
+    } catch (error) {
+      console.error('Error creating user', error.errorInfo);
+      res.status(502).send(error);
+    }
+  });
+  // Delete user
+  app.post('/api/firebase/deleteuser', async (req, res) => {
+    const { uid } = req.body;
+    if (!uid) res.status(400).send({ error: 'Did you miss a parameter?' });
+    await auth.deleteUser(uid);
+    res.send({ success: `${uid} deleted` });
   });
 };

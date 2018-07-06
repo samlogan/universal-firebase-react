@@ -4,6 +4,7 @@ import * as admin from 'firebase-admin';
 import { isDebug } from '../config/app';
 import initExpress from './init/express';
 import initRoutes from './init/routes';
+import initFirebase from './init/firebase';
 import renderMiddleware from './render/middleware';
 import serviceAccount from './secrets/react-redux-firebase-d8246-firebase-adminsdk-c2fr6-b933ed253c.json';
 
@@ -16,6 +17,7 @@ const firebaseCredentials = {
 };
 admin.initializeApp(firebaseCredentials);
 const db = admin.database();
+const auth = admin.auth();
 
 // Webpack dev server
 if (isDebug) {
@@ -35,9 +37,13 @@ if (isDebug) {
 initExpress(app);
 
 /*
+ * Firebase endpoints
+ */
+initFirebase(app, db, auth);
+
+/*
  * REMOVE if not using any additional Express routes
  */
-
 initRoutes(app, db);
 
 /*
