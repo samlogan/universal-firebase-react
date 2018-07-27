@@ -13,10 +13,14 @@ $formbase__timing: ease !default;
 .field {
   position: relative;
   &.split{
-    @include span-columns(6);
+    float: left;
+    width: 49%;
+    margin: 0 1% 0 0;
   }
   &.end{
-    @include omega();
+    float: left;
+    width: 49%;
+    margin: 0 0 0 1%;
   }
   &.clear{
     clear: both;

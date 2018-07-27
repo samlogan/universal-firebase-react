@@ -11,18 +11,16 @@ const AuthForm = ({ authRoute }) => {
   if (authRoute === '/login') {
     return <LoginForm title="Login" />;
   }
-  if (authRoute === '/register') {
-    return (
-      <RegisterForm
-        title="Register"
-        description="Sign up to access this content"
-      />
-    );
-  }
   if (authRoute === '/forgotten') {
     return <ForgottenPassword title="Forgot your password?" />;
   }
-}
+  return (
+    <RegisterForm
+      title="Register"
+      description="Sign up to access this content"
+    />
+  );
+};
 
 let AuthPage = class AuthPage extends Component {
   componentWillUnmount() {

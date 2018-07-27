@@ -14,7 +14,14 @@ class App extends Component {
     if (this.props.loggedIn !== nextProps.loggedIn) nextProps.checkAuth();
   }
   render() {
-    const { route, location, alerts, profile, loggedIn, signOut } = this.props;
+    const {
+      route,
+      location,
+      alerts,
+      profile,
+      loggedIn,
+      signOut
+    } = this.props;
     return (
       <div className={location.pathname === '/' ? 'home' : location.pathname.replace(/\//g, '')}>
         <Alert alerts={alerts} />

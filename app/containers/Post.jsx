@@ -4,6 +4,7 @@ import { Head } from '../components/Common/Head';
 import { Loading } from '../components/Content/Loading';
 import { FourOhFour } from '../components/Content/FourOhFour';
 
+// eslint-disable-next-line
 class Post extends Component {
   render() {
     const { post, loading } = this.props;
