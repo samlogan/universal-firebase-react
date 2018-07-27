@@ -56,7 +56,7 @@ let RegisterForm = class RegisterForm extends Component {
         </form>
         <Link to="#" className="button provider facebook" onClick={event => this.providerSignIn(event, 'facebook')}>Sign up with Facebook</Link>
         <Link to="#" className="button provider google" onClick={event => this.providerSignIn(event, 'google')}>Sign up with Google</Link>
-        <Link to="#" className="sublink" onClick={event => switchAuthForm(event, 'login')}>Already have an account?</Link>
+        <Link to="/login" className="sublink">Already have an account?</Link>
       </div>
     );
   }

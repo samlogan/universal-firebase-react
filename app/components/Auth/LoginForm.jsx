@@ -48,7 +48,7 @@ let LoginForm = class LoginForm extends Component {
         </form>
         <Link to="#" className="button provider facebook" onClick={event => this.providerSignIn(event, 'facebook')}>Sign in with Facebook</Link>
         <Link to="#" className="button provider google" onClick={event => this.providerSignIn(event, 'google')}>Sign in with Google</Link>
-        <Link to="#" className="sublink" onClick={event => switchAuthForm(event, 'forgottenPassword')}>Forgotten Password?</Link>
+        <Link to="#" className="sublink" to="/forgotten">Forgotten Password?</Link>
       </div>
     );
   }

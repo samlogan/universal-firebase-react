@@ -22,7 +22,6 @@ let ForgottenPassword = class ForgottenPassword extends Component {
       description,
       firebase,
       handleSubmit,
-      switchAuthForm,
       forgottenPasswordForm
     } = this.props;
     if (!forgottenPasswordForm) return null;
@@ -42,7 +41,7 @@ let ForgottenPassword = class ForgottenPassword extends Component {
         </form>
         <Link to="#" className="button provider facebook" onClick={event => this.providerSignIn(event, 'facebook')}>Sign up with Facebook</Link>
         <Link to="#" className="button provider google" onClick={event => this.providerSignIn(event, 'google')}>Sign in with Google</Link>
-        <Link to="#" className="sublink" onClick={event => switchAuthForm(event, 'register')}>Create an account</Link>
+        <Link to="#" className="sublink" to="/register">Create an account</Link>
       </div>
     );
   }

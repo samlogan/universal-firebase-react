@@ -3,14 +3,14 @@ import { NavLink } from 'react-router-dom';
 import './Navigation.scss';
 
 export const Navigation = (props) => {
-  const { openAuthModal, profile, loggedIn, signOut } = props;
+  const { profile, loggedIn, signOut } = props;
   const getAccountLink = () => {
     if (loggedIn) return <NavLink to={`/account/${profile.uid}`}>Hi {profile.firstName}</NavLink>;
-    return <NavLink to="#" onClick={event => openAuthModal(event, 'register')}>Register</NavLink>;
+    return <NavLink to="/register">Register</NavLink>;
   };
   const getLoginLogoutLink = () => {
     if (loggedIn) return <NavLink to="#" onClick={event => signOut(event)}>Logout</NavLink>;
-    return <NavLink to="#" onClick={event => openAuthModal(event, 'login')}>Login</NavLink>;
+    return <NavLink to="/login">Login</NavLink>;
   };
   return (
     <nav className="navigation">

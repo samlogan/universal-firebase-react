@@ -7,50 +7,33 @@ import RegisterForm from '../components/Auth/RegisterForm';
 import ForgottenPassword from '../components/Auth/ForgottenPassword';
 import './AuthPage.scss';
 
+const AuthForm = ({ authRoute }) => {
+  if (authRoute === '/login') {
+    return <LoginForm title="Login" />;
+  }
+  if (authRoute === '/register') {
+    return (
+      <RegisterForm
+        title="Register"
+        description="Sign up to access this content"
+      />
+    );
+  }
+  if (authRoute === '/forgotten') {
+    return <ForgottenPassword title="Forgot your password?" />;
+  }
+}
+
 let AuthPage = class AuthPage extends Component {
   componentWillUnmount() {
     this.props.clearRedirect();
-  }
-  getAuthForm(type) {
-    switch (type) {
-      case '/login':
-        return (
-          <LoginForm
-            title="Login"
-            switchAuthForm={(event, authType) => this.handleAuthRouteChange(event, authType)}
-          />
-        );
-      case '/register':
-        return (
-          <RegisterForm
-            title="Register"
-            description="Sign up to access this content"
-            switchAuthForm={(event, authType) => this.handleAuthRouteChange(event, authType)}
-          />
-        );
-      case '/forgotten':
-        return (
-          <ForgottenPassword
-            title="Forgot your password?"
-            switchAuthForm={(event, authType) => this.handleAuthRouteChange(event, authType)}
-          />
-        );
-      default:
-        return <span />;
-    }
-  }
-  handleAuthRouteChange(event, authType) {
-    event.preventDefault();
-    if (authType === 'login') this.props.history.replace('/login');
-    if (authType === 'register') this.props.history.replace('/register');
-    if (authType === 'forgottenPassword') this.props.history.replace('/forgotten');
   }
   render() {
     const { location } = this.props;
     return (
       <main className="container">
         <div className="wrapper authpage">
-          {this.getAuthForm(location.pathname)}
+          <AuthForm authRoute={location.pathname} />
         </div>
       </main>
     );

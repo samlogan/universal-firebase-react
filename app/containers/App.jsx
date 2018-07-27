@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { renderRoutes } from 'react-router-config';
 import { connect } from 'react-redux';
 import { checkAuth, signOut } from '../actions/firebase';
-import Header from '../components/Common/Header';
+import { Header } from '../components/Common/Header';
 import { Alert } from '../components/Common/Alert';
 import './App.scss';
 
