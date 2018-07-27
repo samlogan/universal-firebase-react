@@ -13,7 +13,6 @@
 *.vi
 *~
 *.sass-cache
-*.lock
 
 # OS or Editor folders
 __MACOSX/
