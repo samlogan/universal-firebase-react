@@ -2,8 +2,6 @@
 
 > Full-stack universal React, Redux, Firebase boilerplate :fire: Built on top of the awesome [reactGo](https://github.com/reactGo/reactGo) framework
 
-:construction: still in construction
-
 ## Features:
 - [**React 16**](https://facebook.github.io/react/)
 - [**Redux**](https://github.com/reactjs/redux)
@@ -16,6 +14,14 @@
 - [**Webpack 4**](https://github.com/webpack/webpack)
 - [**CSS Module w/ SASS support**](https://github.com/css-modules/css-modules)
 - [**Express**](https://expressjs.com/en/api.html) server
+
+## Getting started
+
+⛔️ 📛 🚫 **IMPORTANT** run `npm run build` at the start of each project
+
+### Running Server
+
+`npm install && npm run dev`
 
 ### Configuration
 
