@@ -1,23 +1,14 @@
 import express from 'express';
 import webpack from 'webpack';
-import * as admin from 'firebase-admin';
 import { isDebug } from '../config/app';
+import { db, auth } from './utils/firebase';
 import initExpress from './init/express';
 import initRoutes from './init/routes';
 import initFirebase from './init/firebase';
 import renderMiddleware from './render/middleware';
-import serviceAccount from './secrets/react-redux-firebase-d8246-firebase-adminsdk-c2fr6-b933ed253c.json';
 
 const app = express();
 
-// Firebase admin
-const firebaseCredentials = {
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://react-redux-firebase-d8246.firebaseio.com'
-};
-admin.initializeApp(firebaseCredentials);
-const db = admin.database();
-const auth = admin.auth();
 
 // Webpack dev server
 if (isDebug) {
