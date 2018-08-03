@@ -11,6 +11,7 @@
 - [**Universal**](https://medium.com/@ghengeveld/isomorphism-vs-universal-javascript-4b47fb481beb#.4x2t3jlmx) rendering :earth_asia:
 - [**React Router 4**](https://github.com/reactjs/react-router)
 - [**React Router Redux**](https://github.com/reactjs/react-router-redux)
+- [**Redux Form**](https://redux-form.com/7.4.2/)
 - [**Webpack 4**](https://github.com/webpack/webpack)
 - [**CSS Module w/ SASS support**](https://github.com/css-modules/css-modules)
 - [**Express**](https://expressjs.com/en/api.html) server
@@ -50,47 +51,51 @@ const arrayofItems = await getFirebaseArray('example-firebase-ref');
 const exampleObjWithFilters = await getFirebaseObject('example-firebase-ref', { orderByChild: 'date', equalTo: '06/03/2018' });
 ```
 
-#### Example async route handling
+### Example async route handling
 
-> Super basic overview, [you can find out more here](https://github.com/reactGo/reactGo)
+#### Route configuration
 
 `app/routes.jsx`
 
-```
-// Post route with name value
-{
-  path: '/posts/:id',
-  name: 'Post',
-  fetchData,
-  component: asyncComponent(() => import(/* webpackChunkName: "Post" */ './containers/Post')),
-}
-```
-`app/fetch-data/fetchData.js`
+**Home route with corresponding 'name' and 'component' value.**
+- 'name' value is sent to a fetchData function and makes async requests for data
+- getComponent function awaits async requests and handles WebPack code splitting
 
 ```
-// Post case in fetchData switch statement
-case 'Post': {
+{
+  path: '/',
+  exact: true,
+  name: 'Home',
+  fetchData,
+  component: getComponent('Home'),
+}
+```
+
+#### Fetch Data
+
+`app/fetch-data/fetchData.js`
+
+**Post container mapStateToProps**
+- Object returned in fetchData switch statement becomes available on the 'app' Redux state
+
+```
+case 'Home': {
   const posts = await getFirebaseArray('posts', { orderByChild: 'uploaded' });
   return ({ posts });
 }
 ```
-`containers/Post.jsx`
+`containers/Home.jsx`
+
+**Post container mapStateToProps**
+- Object returned in fetchData switch statement becomes available on the 'app' Redux state
+- 'loading' key is set to true at the start of a request and false upon completion
 
 ```
-// Post container mapStateToProps
-// Key returned in fetchData switch statement becomes available on the app redux state
 function mapStateToProps({app, loading}) {
-  const { post } = app;
+  const { posts } = app;
   return {
     loading,
-    post
+    posts
   };
 }
 ```
-
-##### What's happening 🤔
-
-- Matches component to path
-- React Router's onUpdate function (`app/client.jsx`) handles the route change, dispatches initial Redux action creator and runs fetchData
-- fetchData runs a switch statement on the name prop to request the async data and dispatches results to the Redux store making the data available within the matched container
-- Server returns html file to the browser with initial state
