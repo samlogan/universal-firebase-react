@@ -11,6 +11,7 @@
 - [**Universal**](https://medium.com/@ghengeveld/isomorphism-vs-universal-javascript-4b47fb481beb#.4x2t3jlmx) rendering :earth_asia:
 - [**React Router 4**](https://github.com/reactjs/react-router)
 - [**React Router Redux**](https://github.com/reactjs/react-router-redux)
+- [**Redux Form**](https://redux-form.com/7.4.2/)
 - [**Webpack 4**](https://github.com/webpack/webpack)
 - [**CSS Module w/ SASS support**](https://github.com/css-modules/css-modules)
 - [**Express**](https://expressjs.com/en/api.html) server
