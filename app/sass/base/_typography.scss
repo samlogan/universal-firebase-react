@@ -14,7 +14,7 @@ body {
   text-rendering: optimizeLegibility;
   font-smoothing: antialiased;
   @include media-down(mobile) {
-    font-size: 10px;
+    font-size: 14px;
   }
 }
 
