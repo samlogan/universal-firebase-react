@@ -7,7 +7,7 @@
       "app/routes.jsx",
       "app/utils/firebase",
       "server",
-      "webpack",
+      "webpack"
     ],
     "exec": "npm run build:dev && node compiled/server.dev.js"
 }
