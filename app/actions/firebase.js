@@ -123,10 +123,15 @@ export const createProfileFromEmail = (result, firstName, lastName) => async (di
 };
 export const createUserWithEmail = props => async (dispatch) => {
   try {
-    const { firstName, lastName, email, password } = props;
+    const {
+      firstName,
+      lastName,
+      email,
+      password
+    } = props;
     dispatch({type: SIGN_IN});
     const result = await firebaseAuth.createUserWithEmailAndPassword(email, password);
-    dispatch(createProfileFromEmail(result, firstName, lastName));
+    dispatch(createProfileFromEmail(result.user, firstName, lastName));
   } catch (error) {
     dispatch(signInError(error));
   }
@@ -136,7 +141,7 @@ export const signInWithEmail = (props, redirect) => async (dispatch) => {
     const { email, password } = props;
     dispatch({type: SIGN_IN});
     const result = await firebaseAuth.signInWithEmailAndPassword(email, password);
-    dispatch(fetchProfile(result, true, redirect));
+    dispatch(fetchProfile(result.user, true, redirect));
   } catch (error) {
     dispatch(signInError(error));
   }
