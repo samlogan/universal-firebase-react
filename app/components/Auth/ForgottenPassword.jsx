@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { resetPasswordFromEmail, signInWithFacebook, signInWithGoogle } from '../../actions/firebase';
 import { ValidationError } from './ValidationError';
 
+// eslint-disable-next-line
 let ForgottenPassword = class ForgottenPassword extends Component {
   submit(values) {
     const { email } = values;
@@ -22,7 +23,9 @@ let ForgottenPassword = class ForgottenPassword extends Component {
       description,
       firebase,
       handleSubmit,
-      forgottenPasswordForm
+      forgottenPasswordForm,
+      facebook,
+      google
     } = this.props;
     if (!forgottenPasswordForm) return null;
     const { values, submitFailed, syncErrors } = forgottenPasswordForm;
@@ -39,9 +42,9 @@ let ForgottenPassword = class ForgottenPassword extends Component {
           </div>
           <button type="submit" className={firebase.authLoading ? 'button loading' : 'button'}>Submit</button>
         </form>
-        <Link to="#" className="button provider facebook" onClick={event => this.providerSignIn(event, 'facebook')}>Sign up with Facebook</Link>
-        <Link to="#" className="button provider google" onClick={event => this.providerSignIn(event, 'google')}>Sign in with Google</Link>
-        <Link to="#" className="sublink" to="/register">Create an account</Link>
+        {facebook && <Link to="#" className="button provider facebook" onClick={event => this.providerSignIn(event, 'facebook')}>Sign up with Facebook</Link>}
+        {google && <Link to="#" className="button provider google" onClick={event => this.providerSignIn(event, 'google')}>Sign in with Google</Link>}
+        <Link to="/register" className="sublink">Create an account</Link>
       </div>
     );
   }

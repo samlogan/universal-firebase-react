@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { createUserWithEmail, signInWithFacebook, signInWithGoogle } from '../../actions/firebase';
 import { ValidationError } from './ValidationError';
 
+// eslint-disable-next-line
 let RegisterForm = class RegisterForm extends Component {
   submit(values) {
     this.props.createUserWithEmail(values);
@@ -21,8 +22,9 @@ let RegisterForm = class RegisterForm extends Component {
       description,
       firebase,
       handleSubmit,
-      switchAuthForm,
-      registerForm
+      registerForm,
+      google,
+      facebook
     } = this.props;
     if (!registerForm) return null;
     const { values, submitFailed, syncErrors } = registerForm;
@@ -54,8 +56,8 @@ let RegisterForm = class RegisterForm extends Component {
           </div>
           <button type="submit" className={firebase.authLoading ? 'button loading' : 'button'}>Register</button>
         </form>
-        <Link to="#" className="button provider facebook" onClick={event => this.providerSignIn(event, 'facebook')}>Sign up with Facebook</Link>
-        <Link to="#" className="button provider google" onClick={event => this.providerSignIn(event, 'google')}>Sign up with Google</Link>
+        {facebook && <Link to="#" className="button provider facebook" onClick={event => this.providerSignIn(event, 'facebook')}>Sign up with Facebook</Link>}
+        {google && <Link to="#" className="button provider google" onClick={event => this.providerSignIn(event, 'google')}>Sign up with Google</Link>}
         <Link to="/login" className="sublink">Already have an account?</Link>
       </div>
     );

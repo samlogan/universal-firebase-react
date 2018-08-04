@@ -6,6 +6,7 @@ import { signInWithEmail, signInWithFacebook, signInWithGoogle } from '../../act
 import { ValidationError } from './ValidationError';
 import './LoginForm.scss';
 
+// eslint-disable-next-line
 let LoginForm = class LoginForm extends Component {
   submit(values) {
     const { redirect } = this.props.firebase;
@@ -24,7 +25,8 @@ let LoginForm = class LoginForm extends Component {
       firebase,
       loginForm,
       handleSubmit,
-      switchAuthForm
+      facebook,
+      google
     } = this.props;
     if (!loginForm) return null;
     const { values, syncErrors, submitFailed } = loginForm;
@@ -46,9 +48,9 @@ let LoginForm = class LoginForm extends Component {
           </div>
           <button type="submit" className={firebase.authLoading ? 'button loading' : 'button'}>Login</button>
         </form>
-        <Link to="#" className="button provider facebook" onClick={event => this.providerSignIn(event, 'facebook')}>Sign in with Facebook</Link>
-        <Link to="#" className="button provider google" onClick={event => this.providerSignIn(event, 'google')}>Sign in with Google</Link>
-        <Link to="#" className="sublink" to="/forgotten">Forgotten Password?</Link>
+        {facebook && <Link to="#" className="button provider facebook" onClick={event => this.providerSignIn(event, 'facebook')}>Sign in with Facebook</Link>}
+        {google && <Link to="#" className="button provider google" onClick={event => this.providerSignIn(event, 'google')}>Sign in with Google</Link>}
+        <Link to="/forgotten" className="sublink">Forgotten Password?</Link>
       </div>
     );
   }
