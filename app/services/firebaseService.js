@@ -28,7 +28,8 @@ export const getFirebaseArray = async (refString, filters, admin) => {
     const firebaseRef = db.ref(refString);
     const ref = getRef(firebaseRef, filters);
     const snapshot = await ref.once('value');
-    return Object.keys(snapshot.val()).map(key => snapshot.val()[key]);
+    if (!snapshot.val()) return [];
+    return Object.keys(snapshot.val()).map(firebaseKey => ({ ...snapshot.val()[firebaseKey], firebaseKey }));
   } catch (error) {
     return error;
   }
