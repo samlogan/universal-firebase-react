@@ -1,6 +1,3 @@
 /compiled/**
 /public/**
 /webpack/**
-karma.conf.js
-tests.webpack.js
-/api/promiseMiddleware.js
