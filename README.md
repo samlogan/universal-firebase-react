@@ -99,3 +99,26 @@ function mapStateToProps({app, loading}) {
   };
 }
 ```
+
+### Styling
+
+Component and container level based styles exist in `/app/components/*/*.scss` & `app/containers/*/*.scss` and are imported at the top of each JSX file (beneath absolute and relative module/component imports):
+
+```
+// Header.jsx
+import React from 'react';
+import { Logo } from './Logo';
+import './Header.scss';
+```
+
+Global SASS partials (variables, typography, grid settings etc) are contained within `/app/sass/` and are split between two folders:
+
+#### /base
+
+Boilerplate partials including a reset, default typography rules, grid, print and reusable, per project mixins like *_omega-reset.scss*
+
+#### /helpers
+
+For storing mixins, functions and other Sass tools used across the project
+
+⛔️ 📛 🚫 **IMPORTANT** relative paths will not work within .scss files contained in `base` or `helpers`, instead any global styles that require relative paths (images/fonts) should be imported in the App.jsx container
