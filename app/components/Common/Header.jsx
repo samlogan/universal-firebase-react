@@ -1,6 +1,7 @@
 import React from 'react';
 import { Logo } from './Logo';
 import { Navigation } from './Navigation';
+import ErrorBoundary from '../Common/ErrorBoundary';
 
 export const Header = (props) => {
   const { profile, loggedIn, signOut } = props;
@@ -8,12 +9,14 @@ export const Header = (props) => {
     <header id="banner">
       <div className="wrapper">
         <Logo />
-        <Navigation
-          profile={profile}
-          loggedIn={loggedIn}
-          signOut={signOut}
-        />
+        <ErrorBoundary>
+          <Navigation
+            profile={profile}
+            loggedIn={loggedIn}
+            signOut={signOut}
+          />
+        </ErrorBoundary>
       </div>
     </header>
   );
-}
+};

@@ -5,6 +5,7 @@ import ProtectedRoute from './ProtectedRoute';
 import { Head } from '../components/Common/Head';
 import { addPost } from '../actions/posts';
 import { ValidationError } from '../components/Auth/ValidationError';
+import ErrorBoundary from '../components/Common/ErrorBoundary';
 
 let AddPost = class AddPost extends Component {
   submit(values) {
@@ -18,19 +19,21 @@ let AddPost = class AddPost extends Component {
       <main className="container">
         <Head title="Add Post" />
         <div className="wrapper">
-          <form onSubmit={handleSubmit(props => this.submit(props))}>
-            <div className={values && values.email ? 'field active' : 'field'}>
-              <label htmlFor="title">Title</label>
-              <Field name="title" component="input" type="text" placeholder="Enter a title for your post" />
-              <ValidationError submitFailed={submitFailed} errors={syncErrors} field="title" />
-            </div>
-            <div className={values && values.password ? 'field active' : 'field'}>
-              <label htmlFor="content">Content</label>
-              <Field name="content" component="textarea" placeholder="Enter some content for your post" />
-              <ValidationError submitFailed={submitFailed} errors={syncErrors} field="content" />
-            </div>
-            <button type="submit" className="button">Post</button>
-          </form>
+          <ErrorBoundary>
+            <form onSubmit={handleSubmit(props => this.submit(props))}>
+              <div className={values && values.email ? 'field active' : 'field'}>
+                <label htmlFor="title">Title</label>
+                <Field name="title" component="input" type="text" placeholder="Enter a title for your post" />
+                <ValidationError submitFailed={submitFailed} errors={syncErrors} field="title" />
+              </div>
+              <div className={values && values.password ? 'field active' : 'field'}>
+                <label htmlFor="content">Content</label>
+                <Field name="content" component="textarea" placeholder="Enter some content for your post" />
+                <ValidationError submitFailed={submitFailed} errors={syncErrors} field="content" />
+              </div>
+              <button type="submit" className="button">Post</button>
+            </form>
+          </ErrorBoundary>
         </div>
       </main>
     );
