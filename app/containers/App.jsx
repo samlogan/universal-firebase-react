@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { checkAuth, signOut } from '../actions/firebase';
 import { Header } from '../components/Common/Header';
 import { Alert } from '../components/Common/Alert';
+import '../sass/global/styles.scss';
 import './App.scss';
 
 class App extends Component {

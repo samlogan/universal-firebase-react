@@ -1,10 +1,9 @@
 /*=============================================>>>>>
 = Breakpoints =
 ===============================================>>>>>*/
-
 $breakpoints: (
   large: 1600px,
-  desktop: 1300px,
+  desktop: 1340px,
   tablet: 1080px,
   small-tablet: 960px,
   mobile: 750px,
@@ -15,7 +14,7 @@ $breakpoints: (
 = Media Up =
 ===============================================>>>>>*/
 
-// @include media-up(sm) {}
+// @include media-up(mobile) {}
 @mixin media-up($breakpoint) {
 
   // If the breakpoint exists in the map.
@@ -37,12 +36,11 @@ $breakpoints: (
   }
 }
 
-
 /*=============================================>>>>>
 = Media Down =
 ===============================================>>>>>*/
 
-// @include media-below(sm) {}
+// @include media-down(mobile) {}
 @mixin media-down($breakpoint) {
 
   // If the breakpoint exists in the map.
@@ -64,12 +62,11 @@ $breakpoints: (
   }
 }
 
-
 /*=============================================>>>>>
 = Media Between =
 ===============================================>>>>>*/
 
-// @include media-between(sm, md) {}
+// @include media-between(mobile, tablet) {}
 @mixin media-between($lower, $upper) {
 
   // If both the lower and upper breakpoints exist in the map.
@@ -93,7 +90,6 @@ $breakpoints: (
       // Log a warning.
       @warn 'Your lower breakpoint was invalid: #{$lower}.';
     }
-
     // If upper breakpoint is invalid.
     @if (map-has-key($breakpoints, $upper) == false) {
 
