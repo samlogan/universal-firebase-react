@@ -13,6 +13,6 @@ ga('send', 'pageview');
 <script async src='https://www.google-analytics.com/analytics.js'></script>
 `;
 
-const createStylesheets = () => '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed" />';
+const createStylesheets = () => '';
 
 export { createAppScript, createTrackingScript, createStylesheets };
