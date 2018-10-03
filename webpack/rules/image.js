@@ -12,7 +12,7 @@ module.exports = ({ limit = 10240 } = {}) => ({
     }, {
       loader: 'image-webpack-loader',
       options: {
-        // bypassOnDebug: true,
+        bypassOnDebug: true,
         mozjpeg: {
           progressive: true,
           quality: 75
