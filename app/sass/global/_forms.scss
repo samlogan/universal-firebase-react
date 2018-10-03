@@ -23,13 +23,13 @@ input {
 }
 
 button {
-  -webkit-appearance: button;
+  appearance: button;
   cursor: pointer;
 }
 
 input {
   &[type=button], &[type=reset], &[type=submit] {
-    -webkit-appearance: button;
+    appearance: button;
     cursor: pointer;
   }
 }
@@ -65,12 +65,10 @@ input {
     clear: both;
   }
   &[type=search] {
-    -webkit-appearance: textfield;
-    -moz-box-sizing: content-box;
-    -webkit-box-sizing: content-box;
+    appearance: textfield;
     box-sizing: content-box;
     &::-webkit-search-cancel-button, &::-webkit-search-decoration {
-      -webkit-appearance: none;
+      appearance: none;
     }
   }
   &[type=text], &[type=password], &[type=email], &[type=url], &[type=date], &[type=month], &[type=time], &[type=datetime], &[type=datetime-local], &[type=week], &[type=number], &[type=search], &[type=tel], &[type=color] {
@@ -78,8 +76,6 @@ input {
     box-shadow: inset 0 1px 3px #ddd;
     border-radius: 2px;
     vertical-align: middle;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     max-width: 100%;
     padding: 0.5em 0.6em;
@@ -92,8 +88,6 @@ select[_moz-type="-mozilla-keygen"], keygen::-webkit-keygen-select, select, text
   box-shadow: inset 0 1px 3px #ddd;
   border-radius: 2px;
   vertical-align: middle;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   max-width: 100%;
   padding: 0.5em 0.6em;
@@ -109,8 +103,6 @@ input {
     border: 1px solid #ccc;
     box-shadow: inset 0 1px 3px #ddd;
     border-radius: 2px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     padding: 0.5em 0.6em;
   }
