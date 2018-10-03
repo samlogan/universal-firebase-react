@@ -56,7 +56,7 @@
     "webpack-manifest-plugin": "^2.0.3"
   },
   "engines": {
-    "node": "6.x||7.x||8.x||9.x"
+    "node": ">=6.x"
   },
   "dependencies": {
     "axios": "^0.16.2",
