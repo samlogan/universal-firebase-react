@@ -1,6 +1,7 @@
 .image-bg-container {
   height: 400px;
   width: 100%;
+  overflow: hidden;
   .image-bg {
     transition: opacity 1s;
     display: block;
