@@ -15,14 +15,14 @@ export const Head = (props) => {
   } = props;
 
   const meta = [
-    {name: 'viewport', content: 'width=device-width, initial-scale=1.0'},
-    {name: 'description', content: metadesc },
-    {property: 'og:type', content: 'website'},
-    {property: 'og:title', content: !ogTitle ? title : ogTitle },
-    {property: 'og:description', content: !ogDescription ? metadesc : ogDescription},
-    {property: 'og:image', content: ogImage},
-    {property: 'robots', content: noindex},
-    {property: 'robots', content: nofollow}
+    { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
+    { name: 'description', content: metadesc },
+    { property: 'og:type', content: 'website'},
+    { property: 'og:title', content: !ogTitle ? title : ogTitle },
+    { property: 'og:description', content: !ogDescription ? metadesc : ogDescription },
+    { property: 'og:image', content: ogImage },
+    { property: 'robots', content: noindex },
+    { property: 'robots', content: nofollow }
   ];
 
   const links = [

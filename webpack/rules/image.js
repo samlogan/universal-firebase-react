@@ -4,6 +4,13 @@ module.exports = ({ limit = 10240 } = {}) => ({
   test: /\.(png|jpg|jpeg|gif)$/,
   use: [
     {
+      loader: 'responsive-loader',
+      options: {
+        sizes: [300, 600, 1200, 2000],
+        placeholder: true,
+        placeholderSize: 20
+      }
+    }, {
       loader: 'url-loader',
       options: {
         name: '[hash].[ext]',
